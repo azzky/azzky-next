@@ -150,7 +150,7 @@ export const getStaticProps = async ({ params, locale }) => {
     const lang = locale === 'ru' ? 'ru' : 'en-US'
     const res = await client.getEntries({
         content_type: 'post',
-        'fields.link': '/'+slug,
+        'fields.link': slug[0] === '/' ? slug : '/'+slug,
         locale: lang
     });
 
