@@ -17,11 +17,11 @@
     "react-dom": "^18",
     "react-image-lightbox": "^5.1.4",
     "react-intl": "^6.4.7",
-    "react-share": "^4.4.1",
-    "sass": "^1.69.3"
+    "react-share": "^4.4.1"
   },
   "devDependencies": {
     "eslint": "^8",
-    "eslint-config-next": "13.5.4"
+    "eslint-config-next": "13.5.4",
+    "sass": "^1.69.3"
   }
 }
