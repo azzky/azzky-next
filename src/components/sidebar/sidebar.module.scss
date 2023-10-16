@@ -1,0 +1,63 @@
+@import '@/styles/constants.scss';
+
+.root {
+    display: flex;
+    justify-content: center;
+    column-gap: 25px;
+
+    & svg {
+        block-size: 40px;
+        inline-size: 40px;
+        margin: 25px 0;
+        transform: none;
+    }
+
+    & use {
+        transform: scale(1.6);
+    }
+
+    & a {
+        line-height: 0;
+    }
+}
+
+.rootBig {
+    composes: root;
+    justify-content: flex-start;
+
+    & svg {
+        margin: 35px 25px;
+        transform: scale(2);
+    }
+
+    & use {
+        transform: none;
+    }
+
+}
+
+@media screen and (min-width: $screen__m) {
+    .root {
+        display: grid;
+        gap: 25px;
+        margin: 25px 0;
+        justify-content: center;
+
+        & svg {
+            block-size: auto;
+            inline-size: auto;
+            margin: 0;
+        }
+    
+        & use {   
+            transform: none;
+        }
+    }
+
+    .rootBig {
+        display: flex;
+        gap: 25px;
+        margin: 45px 25px 0;
+        justify-content: flex-start;
+    }
+}

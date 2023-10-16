@@ -1,0 +1,6 @@
+@import './constants.scss';
+
+.root {
+    inline-size: 100%;
+    max-inline-size: $imageSize;
+}

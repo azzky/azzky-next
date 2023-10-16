@@ -1,0 +1,37 @@
+@import '@/styles/constants.scss';
+
+.root {
+    padding: 5px 20px;
+    color: var(--color-black);
+    text-transform: uppercase;
+    font-size: var(--font-size-8);
+    font-weight: 500;
+    background-color: var(--color-white);
+}
+
+.absolute {
+    composes: root;
+    
+    position: absolute;
+    bottom: 0;
+    inline-size: 100%;
+    z-index: 1;
+    background-color: transparent;
+}
+
+.designer {
+    margin-block-start: 10px;
+}
+
+@media screen and (min-width: $screen__m) {
+    .root {
+        display: grid;
+        justify-content: space-between;
+        grid-template-columns: 1fr auto;
+        gap: 20px;
+    }
+
+    .designer {
+        margin-block-start: 0;
+    }
+}

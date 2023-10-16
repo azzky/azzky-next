@@ -1,0 +1,23 @@
+@import '@/styles/constants.scss';
+@import '@/styles/_mixins.scss';
+
+.root {
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+    grid-area: share;
+    gap: 5px;
+    margin: 0 0 15px;
+
+    & p {
+        font-size: var(--font-size-13);
+    }
+}
+
+@media screen and (min-width: $screen__m) {
+    .root {
+        bottom: 30px;
+        margin-block-end: 0;
+        @include hero-element();
+    }
+}

@@ -1,0 +1,237 @@
+@import '@/styles/constants.scss';
+@import '@/styles/_mixins.scss';
+
+.main {
+    min-block-size: 100dvh;
+    background-color: var(--color-white);
+    padding-block-start: var(--header-height);
+}
+
+.mainHero {
+    composes: main;
+    padding-block-start: 0;
+}
+
+.mainHero :global .heroWrapper {
+    // position: relative;
+    // inline-size: 100%;
+    // block-size: 100dvh;
+    // z-index: 1;
+    // top: 0;
+    // left: 0;
+    // overflow: hidden;
+
+    // &::before {
+    //     content: '';
+    //     display: block;
+    //     block-size: 100%;
+    //     background-color: rgba(0,0,0,0.2);
+    // }
+}
+
+.heroWrapper {
+    position: relative;
+    inline-size: 100%;
+    block-size: 100dvh;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        display: block;
+        block-size: 100%;
+        background-color: rgba(0,0,0,0.2);
+    }
+}
+
+.heroWrapperNsfw {
+    composes: heroWrapper;
+    &::after {
+        content: '';
+        background-image: url(/holder-big_tr.png);
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        z-index:-1;
+    }
+}
+
+.heroWrapperNsfwV {
+    composes: heroWrapperNsfw;
+    &::after {
+        background-image: url(/holder-small_tr.png);
+    }
+}
+
+.heroWrapper :global .heroImage {
+    z-index: -2;
+    position: absolute !important;
+    top: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+}
+
+.heroNsfwImage {
+    z-index: -2;
+    position: absolute !important;
+    top: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+}
+
+.heroContent {
+    position: absolute;
+    top: 0;
+    padding: 70px 15px 45px;
+    max-block-size: 100dvh;
+    overflow: hidden;
+    row-gap: 20px;
+    block-size: 100%;
+    display: grid;
+    grid-template-areas:
+        'h1'
+        'text'
+        'team'
+        'share';
+    grid-template-rows: repeat(4, min-content);
+
+    & > div {
+        overflow-x: auto;
+    }
+}
+
+.heroContentPost {
+    composes: heroContent;
+    grid-template-areas:
+        'description'
+        'team'
+        'share';
+    grid-template-rows: 1fr auto auto;
+}
+
+.heroContent404 {
+    composes: heroContent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    inline-size: 100%;
+}
+
+.heroContentSuccess {
+    composes: heroContent404;
+}
+
+.heroTitle {
+    grid-area: h1;
+}
+
+.heroTitle404 {
+    composes: heroTitle;
+    font-weight: 900;
+    font-size: var(--font-size-150);
+    margin-block-end: 30px;
+}
+
+.heroTitleSuccess {
+    composes: heroTitle;
+}
+
+.heroDescription {
+    grid-area: text;
+
+    & a {
+        color: inherit;
+        text-decoration: underline;
+    }
+}
+
+.heroDescription404 {
+    composes: heroDescription;
+}
+
+.heroDescriptionSuccess {
+    composes: heroDescription;
+    block-size: 100%;
+    position: static;
+}
+
+.heroVideoRoot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    z-index: -2;
+    pointer-events: none;
+    overflow: hidden;
+    background-color: var(--color-white);
+}
+
+.heroVideo {
+    inline-size: 100vw;
+    min-block-size: 100dvh;
+    block-size: 75.10vw; /* Given actual ratio, 18.7/24.9*100 = 75.10 */
+    min-inline-size: 133.15dvh; /* Given actual ratio, 24.9/18.7*100 = 133.15 */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    // filter: grayscale(1); /* comment on if wanted color */
+}
+
+@media screen and (min-width: $screen__m) {
+    .heroContent {
+        position: initial;
+    }
+
+    .heroContent404 {
+        position: absolute;
+        right: 204px;
+        left: auto;
+        inline-size: auto;
+        top: 80px;
+        text-align: center;
+    }
+
+    .heroContentSuccess {
+        position: absolute;
+        left: auto;
+        inline-size: 100%;
+        top: 0;
+        text-align: center;
+    }
+
+    .heroTitle {
+        top: 150px;
+        font-size: 2.125rem;
+        @include hero-element();
+    }
+
+    .heroTitle404 {
+        font-size: 12.5rem;
+        margin-block-end: 6px;
+        position: static;
+    }
+
+    .heroTitleSuccess {
+        position: static;
+        font-size: var(--font-size-70);
+        margin-block-start: 100px;
+    }
+
+    .heroDescription {
+        top: 280px;
+        @include hero-element();
+        max-inline-size: 810px;
+    }
+}

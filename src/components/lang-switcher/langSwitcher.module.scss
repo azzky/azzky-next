@@ -1,0 +1,11 @@
+@import '@/styles/constants.scss';
+
+.root {
+    display: grid;
+    justify-content: center; 
+}
+
+.button {
+    text-transform: uppercase;
+    font-size: 24px;
+}

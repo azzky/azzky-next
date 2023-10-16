@@ -1,0 +1,19 @@
+@import '@/styles/constants.scss';
+@import '@/styles/_mixins.scss';
+
+.root {
+    grid-row: 1;
+    grid-column: 1 / span 2;
+    display: flex;
+    justify-content: center;
+}
+
+.image {
+    filter: invert(1);
+}
+
+@media screen and (min-width: $screen__m) {
+    .root {
+        grid-column-end: 1;
+    }
+}

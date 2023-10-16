@@ -1,0 +1,95 @@
+@import '@/styles/constants.scss';
+
+.root {
+    display: flex;
+    justify-content: center;
+    grid-row: 3;
+}
+
+.settings {
+    position: absolute;
+    bottom: var(--header-height);
+    inline-size: 100%;
+    left: 0;
+    right: 0;
+    display: grid;
+    justify-content: center;
+    block-size: 70dvh;
+    padding: 40px 20px 0;
+    transition: all .4s ease-in;
+    opacity: 0;
+    z-index: -5;
+}
+
+.settingsLifted {
+    composes: settings;
+}
+
+.settingsActive {
+    composes: settingsLifted;
+
+    opacity: 1;
+    background-color: var(--color-white);
+}
+
+.trigger {
+    z-index: 6;
+    transition: transform .2s ease-in;
+    display: flex;
+}
+
+.triggerActive {
+    composes: trigger;
+    transform: rotate(180deg);
+}
+
+@media screen and (max-width: $screen__m) {
+    .settings {
+        bottom: 0;
+        block-size: 100dvh;
+        padding-top: 60px;
+        opacity: 1;
+        background-color: var(--color-white);
+        transform: translateX(100%);
+
+        & hr {
+            display: block;
+            block-size: 2px;
+        }
+    }
+
+    .settingsActive {
+        transform: none;
+    }
+}
+@media screen and (min-width: $screen__m) {
+    .root {
+        grid-column: 3;
+        grid-row: 1 / span 2;
+    }
+
+    .settings {
+        position: initial;
+        opacity: 1;
+        z-index: 2;
+        inline-size: 100px;
+        block-size: 100dvh;
+        display: grid;
+        grid-template-rows: var(--header-height) 1fr auto 1fr 80px;
+        align-items: center;
+        padding-block-start: 0;
+        padding-block-end: 10px;
+
+        & hr:last-of-type {
+            display: none;
+        }
+    }
+
+    .settingsLifted {
+        block-size: calc(100dvh - 12px);
+    }
+
+    .trigger {
+        display: none;
+    }
+}

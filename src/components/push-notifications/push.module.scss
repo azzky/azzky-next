@@ -1,0 +1,32 @@
+@import '@/styles/constants.scss';
+
+.root {
+    background-color: inherit;
+}
+
+.rootVisible {
+    composes: root;
+}
+
+.button {
+    background-color: var(--color-black);
+    color: var(--color-white);
+    padding: 1em 3em;
+    margin: 1em auto;
+    display: block;
+    text-transform: uppercase;
+}
+
+@media screen and (min-width: $screen__m) {
+    .root {
+        display: none;
+    }
+
+    .rootVisible {
+        display: block;
+    }
+
+    .button {
+        margin-left: 0;
+    }
+}

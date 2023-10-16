@@ -1,0 +1,36 @@
+.root {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: grid;
+    place-items: center;
+    z-index: 5;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.content {
+    width: 90%;
+    max-width: 600px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    column-gap: 30px;
+    margin-top: 30px;
+}
+
+.button {
+    padding: 10px 30px;
+    border: 2px solid;
+    font-weight: 500;
+}
+
+.primaryButton {
+    composes: button;
+
+    background: var(--color-black);
+    color: var(--color-white);
+}

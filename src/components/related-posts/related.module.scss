@@ -1,0 +1,58 @@
+@import '@/styles/constants.scss';
+@import '@/components/masonry-azzky/constants.scss';
+
+$related__gap: 20px;
+$related__image-size: 400px;
+$breakpoint: $related__image-size * 2 + $related__gap;
+
+.title {
+    text-align: center;
+    margin-bottom: $related__gap;
+}
+
+.root {
+    display: grid;
+    gap: $related__gap;
+    justify-content: center;
+    align-items: center;
+    padding: 0 40px $related__gap;
+}
+
+.imageNsfw {
+    position: relative;
+    &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-image: url('/holder-big_tr.png');
+    }
+}
+
+.imageNsfwV {
+    composes: imageNsfw;
+    &:before {
+        background-image: url('/holder-small_tr.png');
+    }
+}
+
+@media screen and (min-width: $breakpoint) {
+    .root {
+        grid-template-columns: repeat(2, $related__image-size);
+    }
+}
+
+@media screen and (min-width: $deviceL) {
+    .title {
+        margin-bottom: 40px;
+    }
+    .root {
+        gap: 40px;
+        padding-block-end: 40px;
+    }
+}

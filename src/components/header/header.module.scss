@@ -1,0 +1,66 @@
+@import '../../styles/constants.scss';
+
+.root {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    grid-template-rows: var(--header-height) 1fr var(--header-height);
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    top: 0;
+    z-index: 2;
+    pointer-events: none;
+    inline-size: 100%;
+    transition: all .4s ease-in;
+
+    & > * {
+        pointer-events: all;
+    }
+}
+
+.activeRoot {
+    composes: root;
+}
+
+.mobileMenuItems {
+    list-style: none;
+    text-align: center;
+    text-transform: uppercase;
+    display: grid;
+    gap: 10px;
+    padding-bottom: 30px;
+
+    & li:first-child,
+    & li:nth-child(n+6) {
+        display: none;
+    }
+}
+
+@media screen and (min-width: $screen__m) {
+    .root {
+        grid-template-columns: auto 1fr auto;
+        grid-template-rows: var(--header-height) 1fr;
+        padding-inline-start: 20px;
+
+        & hr {
+            color: var(--color-black);
+            inline-size: 2px;
+            block-size: 100%;
+            margin: 0 auto;
+            display: block;
+        }
+    }
+
+    .activeRoot {
+        background-color: var(--color-white);
+    }
+
+    .mobileMenuItems {
+        display: none;
+
+        & + hr {
+            display: none;
+        }
+    }
+}

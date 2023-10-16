@@ -1,0 +1,156 @@
+@import '@/styles/constants.scss';
+@import '@/styles/_mixins.scss';
+
+.root {
+    grid-row: 3;
+}
+
+.button {
+    display: none;
+
+    & span {
+        inline-size: 5px;
+        position: absolute;
+        background-color:var(--color-black);
+        top: 0;
+        transition: all .3s ease-in;
+        pointer-events: none;
+
+        &:first-child {
+            left: 2.5px;
+            block-size: 50%;   
+        }
+    
+        &:nth-child(2) {
+            block-size: 75%;
+            left: calc(50% - 3px);
+            opacity: 1;
+        }
+        
+        &:last-child {
+            block-size: 100%;
+            right: 2.5px;
+        }
+    }
+}
+
+.buttonActive {
+    composes: button;
+
+    & span {
+        &:first-child {
+            transform: rotate(45deg) translate(9px, -9px);
+            block-size: 100%;
+        }
+
+        &:nth-child(2) {
+            opacity: 0;
+        }
+
+        &:last-child {
+            transform: rotate(-45deg) translate(-9px, -9px);
+        }
+    }
+}
+
+.menu {
+    & ul {
+        list-style: none;
+        display: flex;
+    }
+
+    & li {
+        inline-size: 25%;
+        display: flex;
+        justify-content: center;
+
+        svg {
+            fill: var(--color-black);
+        }
+    }
+}
+
+@media screen and (max-width: $screen__m) {
+    .menu {
+        & li {
+            &:nth-child(-n+5) {
+                display: none;
+            }
+        }
+    }
+
+    .label {
+        @include visually-hidden();
+    }
+}
+
+@media screen and (min-width: $screen__m) {
+    .root {
+        inline-size: 35px;
+        block-size: 40px;
+        grid-row: 1;
+        margin: 0 auto;
+    }
+
+    .button {
+        display: block;
+        border: none;
+        background: none;
+        position: relative;
+        inline-size: 100%;
+        block-size: 100%;
+        cursor: pointer;
+
+        &:hover span {
+            block-size: 100%;
+        }
+    }
+
+    .menu {
+        position: absolute;
+        left: 0;
+        inline-size: 100%;
+        top: var(--header-height);
+        block-size: calc(100dvh - var(--header-height));
+        overflow-y: auto;
+        padding-bottom: 60px;
+        transition: all .4s ease-in;
+        opacity: 0;
+        z-index: -2;
+        pointer-events: none;
+
+        & ul {
+            flex-direction: column;
+            margin-block-start: 34px;
+
+            & > * + * {
+            margin-block-start: 40px;
+            }
+        }
+
+        & li {
+            inline-size: auto;
+            text-transform: uppercase;
+            font-size: var(--font-size-96);
+            font-weight: 900;
+            line-height: 120px;
+
+            svg {
+                display: none;
+            }
+
+            a.active,
+            a:hover {
+                color: var(--color-highlight);
+            }
+        }
+    }
+
+    .menuActive {
+        composes: menu;
+        background-color: var(--color-white);
+        opacity: 1;
+        z-index: 3;
+        pointer-events: all;
+    }
+}

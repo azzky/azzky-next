@@ -1,0 +1,30 @@
+@import './constants.scss';
+
+.root {
+    --gap: 15px;
+    padding: 0 var(--gap) 0;
+    display: flex;
+    justify-content: center;
+}
+
+.postRoot {
+    composes: root;
+    padding-block-start: var(--gap);
+}
+
+@media (min-width: $deviceM) {
+    .root {
+        --gap: 20px;
+        display: grid;
+        column-gap: var(--gap);
+        grid-template-columns: repeat(var(--column-number), $imageSize);
+    }
+}
+
+@media (min-width: $deviceL) {
+    .root {
+        --gap: 40px;
+        padding-inset-inline-end: 42px;
+        padding-inset-inline-start: 42px;
+    }
+}

@@ -1,0 +1,42 @@
+@import './constants.scss';
+@import '@/styles/constants.scss';
+
+.root {
+    margin-block-end: 20px;
+    padding-block-start: 20px;
+    overflow: auto;
+    white-space: nowrap;
+    justify-content: center; 
+}
+
+.item {
+    background: none;
+    border: none;
+    color: var(--color-highlight);
+    padding: 0 15px;
+    font-size: inherit;
+    color: var(--color-highlight);
+
+    &:not(:disabled):hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    &:disabled {
+        color: var(--color-black);
+        cursor: initial;
+    }
+}
+
+@media (min-width: $screen__m) {
+    .root {
+        padding-block-start: 0;
+        gap: 10px;
+        display: grid;
+        grid-auto-flow: column;
+    }
+
+    .item {
+        padding: 25px 15px;
+    }
+}

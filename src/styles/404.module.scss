@@ -1,0 +1,20 @@
+@import '@/styles/constants.scss';
+@import '@/styles/_mixins.scss';
+
+.button {
+    margin-block-start: 56px;
+    line-height: 70px;
+    text-transform: uppercase;
+    background-color: var(--color-black);
+    inline-size: 100%;
+    color: var(--color-white);
+    text-align: center;
+}
+
+@media screen and (min-width: $screen__m) {
+    .button {
+        @include hero-element();
+        top: 300px;
+        inline-size: 350px;
+    }
+}

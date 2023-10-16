@@ -1,0 +1,53 @@
+@import './constants.scss';
+$transition: transform .3s ease-in-out, box-shadow .2s ease-in-out;
+
+.root {
+    position: relative;
+    margin-block-end: var(--gap);
+}
+
+.nsfw {
+    composes: root;
+
+    &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-image: url(/holder-big_tr.png);
+    }
+}
+
+.vertical {
+    composes: nsfw;
+
+    &::before {
+        background-image: url(/holder-small_tr.png);
+    }
+}
+
+.opener {
+    position: absolute;
+    left: 0;
+    top: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    z-index: 1;
+}
+
+.hover {
+    transition: $transition;
+
+    &:hover {
+        box-shadow:
+            8px 8px 0 0 var(--white-transparent),
+            16px 16px 0 0 var(--white-transparent);
+        transform: translate(-5px, -5px);
+        transition: $transition;
+    }
+}

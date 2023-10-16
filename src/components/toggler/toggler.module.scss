@@ -1,0 +1,55 @@
+@import '@/styles/constants.scss';
+@import '@/styles/_mixins.scss';
+
+.root {
+    position: relative;
+    display: inline-block;
+    inline-size: 60px;
+    block-size: 26px;
+    z-index: 3;
+    pointer-events: all;
+    color: var(--color-white);
+    line-height: 26px;
+    font-size: var(--font-size-10);
+    padding: 0 5px;
+    background-color: var(--color-black);
+    border-radius: 26px;
+    text-align: start;
+    cursor: pointer;
+    @include horizontally-center();
+
+    &::before {
+        position: absolute;
+        content: "";
+        block-size: 16px;
+        inline-size: 16px;
+        bottom: 5px;
+        background-image: url('../../images/sad.png');
+        background-color: var(--color-white);
+        border-radius: 50%;
+        left: 37px;
+        right: 3px;
+        transition:
+            left .4s ease-in-out,
+            right .4s ease-in-out,
+            rotate .4s ease-in-out;
+    }
+
+    & input {
+        @include visually-hidden();
+    }
+}
+
+.rootActive {
+    composes: root;
+    text-align: end;
+
+    &::before {
+        background-image: url('../../images/moon.png');
+        left: 3px;
+        right: 27px;
+        rotate: 360deg;
+    }
+}
+
+@media screen and (min-width: $screen__m) {}

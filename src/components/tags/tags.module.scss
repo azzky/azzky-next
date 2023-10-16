@@ -1,0 +1,30 @@
+@import '@/styles/constants.scss';
+@import '@/styles/_mixins.scss';
+
+.root {
+    display: flex;
+    column-gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
+
+    & a {
+        font-style: italic;
+        font-size: 1rem;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+@media screen and (min-width: 841px) {
+    .root {
+        margin-top: 15px;
+    }
+}
+@media screen and (min-width: 1441px) {
+    .root {
+        margin-top: 35px;
+    }
+}
