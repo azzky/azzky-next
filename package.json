@@ -17,7 +17,8 @@
     "react-dom": "^18",
     "react-image-lightbox": "^5.1.4",
     "react-intl": "^6.4.7",
-    "react-share": "^4.4.1"
+    "react-share": "^4.4.1",
+    "styled-jsx": "^5.1.2"
   },
   "devDependencies": {
     "eslint": "^8",
