@@ -1,5 +1,3 @@
-import React from "react"
-
 import * as classes from './settings.module.scss'
 
 const Settings = (props) => {

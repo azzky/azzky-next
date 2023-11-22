@@ -1,19 +1,27 @@
 import { client } from '@/lib/contentful'
 import Link from 'next/link'
-import { FormattedMessage } from 'react-intl'
+import { injectIntl, FormattedMessage } from 'react-intl'
 import { Layout } from '@/components'
 import { useVideo } from "@/hooks/useVideo"
 import useCenzorship from '@/hooks/useCenzorship'
-import { PostsGallery } from '@/components/gallery/gallery'
+import { PostsGallery } from '@/components'
 import config from '@/components/meta/config'
+import MainSchema from '@/components/meta/meta'
 
 import * as classes from '@/components/layout/layout.module.scss'
 
-const Home = ({ posts, locale }) => {
+const Home = ({ posts, locale, intl }) => {
     const { pageNsfw, toggleNsfw, showNsfwPopup, setShowNsfwPopup, setNsfw, setToggle } = useCenzorship()
     const { renderVideo } = useVideo()
     return (
         <>
+            <MainSchema isHome
+                locale={locale}
+                edges={posts}
+                data={{
+                    title: intl.formatMessage({id: 'homepage.seoTitle'}),
+                    metadescription: intl.formatMessage({id: 'homepage.seoDescription'})
+            }}/>
             <Layout
                 toggler
                 hero
@@ -64,7 +72,7 @@ const Home = ({ posts, locale }) => {
     )
 };
 
-export default Home;
+export default injectIntl(Home);
 
 export const getStaticProps = async ({ locale }) => {
     const res = await client.getEntries({

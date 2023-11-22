@@ -3,7 +3,7 @@ import { client } from "@/lib/contentful";
 import useCenzorship from '@/hooks/useCenzorship'
 import { Layout } from '@/components'
 import {PostGallery} from '@/components/gallery/gallery'
-// import MainSchema from '@/components/meta/meta'
+import MainSchema from '@/components/meta/meta'
 import Share from '@/components/share/share'
 import Tags from '@/components/tags'
 import Team from '@/components/team/team'
@@ -13,10 +13,11 @@ import prepareContent from '@/hooks/useHtmlContent'
 import RelatedPosts from '@/components/related-posts/related'
 import useWidth from '@/hooks/useWindowSize'
 import Image from "next/image";
+import Maindata, { metaPreviewSetting } from '@/constants'
 
 import * as classes from '@/components/layout/layout.module.scss'
 
-const Post = ({ post, locale }) => {
+const Post = ({ post, locale, createdAt, prev, next }) => {
     const { pageNsfw, toggleNsfw, showNsfwPopup, setShowNsfwPopup, setNsfw, setToggle } = useCenzorship()
     const [isShowModal, showModal] = useState(false)
     const {isVertical} = useWidth()
@@ -31,11 +32,13 @@ const Post = ({ post, locale }) => {
         popup,
         isWallNsfw,
         title,
+        metatitle,
         model,
         nawashi,
         photographer,
         muah,
         tags,
+        taglist,
         nsfw,
         nsfwarr,
         gallery,
@@ -78,8 +81,29 @@ const Post = ({ post, locale }) => {
         width: 15,
         height: 15
     };
+    const metaData = {
+        title: metatitle || title,
+        metadescription: metadescription || '',
+        thumbnail: preview.fields.file.url + metaPreviewSetting,
+        breadCrumbTitle: title,
+        gallery,
+        photographer,
+        model,
+        muah,
+        createdAt,
+        nsfw,
+        taglist,
+        significantLinks: [
+            Maindata.url + '/shibari' + next.link, Maindata.url + '/shibari' + prev.link
+        ]
+    }
 
     return (
+        <>
+            <MainSchema isPost
+                data={metaData}    
+                locale={locale}
+            />
         <Layout hero
                 dark
                 pageNsfw={pageNsfw}
@@ -133,13 +157,13 @@ const Post = ({ post, locale }) => {
                     {isShowModal && <div dangerouslySetInnerHTML={{ __html: readyData }}/>}
                 </Modal>
             )}
-            {/* {(prev || next) &&
+            {(prev && next) &&
                 <RelatedPosts next={next}
                               prev={prev}
-                              pageNsfw={pageNsfw}
-                              lang={lang} />
-            } */}
+                              pageNsfw={pageNsfw}/>
+            }
         </Layout>
+        </>
     );
 };
 
@@ -150,23 +174,46 @@ export const getStaticProps = async ({ params, locale }) => {
     const lang = locale === 'ru' ? 'ru' : 'en-US'
     const res = await client.getEntries({
         content_type: 'post',
-        'fields.link': slug[0] === '/' ? slug : '/'+slug,
+        order: '-fields.date',
+        // 'fields.link': slug[0] === '/' ? slug : '/'+slug,
         locale: lang
     });
-
+    let postIndex = null;
+    let currentPost = null;
+    res.items.map((p, index) => {
+        const state = p.fields.link.includes(slug);
+        if (state) {
+            postIndex = index;
+            currentPost = p;
+        }
+    });
+    const prev = postIndex === 0 ? res.items[postIndex + 1] : // case newest
+        postIndex === res.items.length - 1 ? res.items[0] : // case oldest
+        res.items[postIndex + 1]; // other
+    const next = postIndex === 0 ? res.items[res.items.length - 1] : // case newest
+        postIndex === res.items.length -1 ? res.items[postIndex - 1] : // case oldest
+        res.items[postIndex - 1]; // other
     return {
         props: {
-            post: res?.items?.[0]?.fields || {},
+            post: currentPost?.fields || {},
+            createdAt: currentPost?.sys.createdAt,
             locale,
-            revalidate: 60
+            revalidate: 60,
+            prev: prev?.fields || null,
+            next: next?.fields || null
         }
     };
 };
 
 export const getStaticPaths = async () => {
-    const res = await client.getEntries({ content_type: 'post' });
+    const res = await client.getEntries({
+        content_type: 'post',
+        order: '-fields.date',
+    });
     const paths = res.items.map(item => ({
-        params: { slug: item.fields.link }
+        params: {
+            slug: item.fields.link
+        }
     }));
 
     return {

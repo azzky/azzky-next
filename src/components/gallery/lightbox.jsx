@@ -1,4 +1,3 @@
-import React from "react"
 import Lightbox from "react-image-lightbox"
 import PropTypes from "prop-types"
 import { HolderSmall } from '@/constants'
