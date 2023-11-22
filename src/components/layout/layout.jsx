@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react'
 import Sprite from '../svg-sprite'
 import Header from "../header/header"
 import Footer from '../footer/footer'
@@ -32,6 +33,7 @@ const Layout = (props) => {
                 {props.children}
             </main>
             <Footer $isFooterAbsolute={isFooterAbsolute}/>
+            <Analytics/>
             <NsfwPopup showNsfwPopup={showNsfwPopup}
                        setNsfw={setNsfw}
                        setShowNsfwPopup={setShowNsfwPopup}
