@@ -189,7 +189,20 @@ const MainSchema = ({
         },
         "isPartOf": {
             "@id": Maindata.url
+        }
+    } : null
+
+    const schemaPostPage = isPost ? {
+        "@type": "WebPage",
+        "headline": title,
+        "inLanguage": locale,
+        "author": schemaAuthors,
+        "image": schemaArticleImages,
+        "datePublished": data.createdAt,
+        "publisher": {
+            "@id": schemaOrganisationId
         },
+        "RelatedLink": Maindata.url,
         "significantLinks": data.significantLinks
     } : null
 
@@ -210,7 +223,10 @@ const MainSchema = ({
             "name": data.breadCrumbTitle
         })
     }
-    if (isPost) schemaItems.push(schemaArticle)
+    if (isPost) {
+        schemaItems.push(schemaArticle)
+        schemaItems.push(schemaPostPage)
+    }
 
     let schemaModelName = ''
     if(data.model?.length) for(let i = 0;i < data.model.length;i++) {
