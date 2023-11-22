@@ -74,7 +74,7 @@ const Form = ({
 };
 
 const Contact = (props) => {
-    const { intl } = props;
+    const { intl, locale } = props;
     const { pageNsfw, toggleNsfw, showNsfwPopup, setShowNsfwPopup, setNsfw, setToggle } = useCenzorship();
     const [state, handleSubmit] = useForm("mnqklwjp");
 
@@ -92,7 +92,7 @@ const Contact = (props) => {
                 title: intl.formatMessage({id: 'contactpage.title'}),
                 metadescription: intl.formatMessage({id: 'contactpage.seoDescription'})
             }}
-                        locale={langKey}
+                        locale={locale}
                         isPage />
             <h1>
                 <FormattedMessage id="contactpage.h1"/>
@@ -135,3 +135,11 @@ const Contact = (props) => {
 };
 
 export default injectIntl(Contact);
+
+export const getStaticProps = ({ locale }) => {
+    return {
+        props: {
+            locale
+        }
+    }
+};
