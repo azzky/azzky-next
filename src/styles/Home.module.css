@@ -1,7 +1,0 @@
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 400px));
-    gap: 40px;
-    margin: 0 auto;
-    justify-content: center;
-}

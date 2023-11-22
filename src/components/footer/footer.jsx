@@ -1,4 +1,3 @@
-import React from "react"
 import config from './config'
 import getDate from '@/hooks/useDate'
 import { FormattedMessage } from "react-intl"

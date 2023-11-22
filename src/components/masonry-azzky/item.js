@@ -1,4 +1,3 @@
-import React from "react"
 import Link from 'next/link'
 import config from "./config"
 import { SfwOrNsfwImage } from "./image"

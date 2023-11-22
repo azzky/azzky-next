@@ -1,4 +1,3 @@
-import React from "react"
 import { getSocial } from "@/utils"
 
 const SocialLink = ({link}) => {

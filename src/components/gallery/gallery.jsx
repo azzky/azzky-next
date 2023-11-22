@@ -1,4 +1,3 @@
-import React from "react"
 import { ResponsiveGallery } from '@/components'
 import { lightboxSettings } from "@/constants"
 

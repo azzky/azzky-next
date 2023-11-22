@@ -1,5 +1,3 @@
-import React from 'react'
-
 const index = () => {
     const styles = {
         display: 'none'

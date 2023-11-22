@@ -1,4 +1,3 @@
-import React from "react"
 import ImagesLightBox from "../gallery/lightbox"
 import Filters from "./filters"
 import useMasonry from "./useMasonry"

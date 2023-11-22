@@ -1,4 +1,3 @@
-import React from 'react'
 import Maindata from '@/constants'
 import config from './config'
 

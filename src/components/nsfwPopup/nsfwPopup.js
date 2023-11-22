@@ -1,4 +1,3 @@
-import React from "react"
 import { useNsfwPopup } from "./useNsfwPopup"
 import { FormattedMessage } from "react-intl"
 

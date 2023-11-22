@@ -1,38 +1,33 @@
-import React from "react"
-import { useLocation } from "@reach/router"
+import { injectIntl } from 'react-intl'
+import { useRouter } from 'next/router';
 import Maindata, { menuItems, metaPreviewSetting } from "@/constants"
 import config from './config'
-import en from '../../intl/en.json'
-import ru from '../../intl/ru.json'
-
-const langs = {
-    en,
-    ru
-}
+import Head from "next/head";
 
 const MainSchema = ({
     isHome,
     isPost,
     locale,
     edges,
-    data
+    data,
+    intl
 }) => {
-    const { href } = useLocation()
-
+    const router = useRouter()
+    const href = Maindata.url + router.asPath;
     const title = data.title
-    const orgTitle = langs[locale]['homepage.seoTitle']
-    const orgDescription = langs[locale]['homepage.seoDescription']
+    const orgTitle = intl.formatMessage({id: 'homepage.seoTitle'})
+    const orgDescription = intl.formatMessage({id: 'homepage.seoDescription'})
     const description = data.metadescription
     const thumbnail = isHome ? config.videoThumb : Maindata.imagePrefix + data?.thumbnail
-    const url = isHome ? Maindata.url : href
+    const url = href
     const schemaArticleImages = []
     const schemaAuthors = []
     const schemaArticles = []
     const schemaLogoId = Maindata.url + "/#/schema/logo/image/"
     const schemaOrganisationId = Maindata.url + "/#organization"
     const schemaAuthorAzzkyId = Maindata.url + "/#/schema/author/azzky"
-    const schemaAuthorPhotographerId = data.photographer?.name ? Maindata.url + "/#/schema/author/" + data.photographer.name.replaceAll(' ', '') : null
-    const isAzzkyPhotographer = data.photographer?.name === Maindata.author
+    const schemaAuthorPhotographerId = data.photographer?.fields?.name ? Maindata.url + "/#/schema/author/" + data.photographer.fields.name.replaceAll(' ', '') : null
+    const isAzzkyPhotographer = data.photographer?.fields?.name === Maindata.author
     const schemaTags = "shibari, rope bondage" + (data?.taglist?.includes('suspension') ? ', shibari suspension' : '')
 
     const schemaSkeleton = {
@@ -73,7 +68,7 @@ const MainSchema = ({
         "logo":{
             "@type": "ImageObject",
             "@id": schemaLogoId,
-            "inLanguage": locale === 'ru' ? 'ru-RU' : locale,
+            "inLanguage": locale,
             "url": Maindata.logoLink,
             "contentUrl": Maindata.logoLink,
             "width": 81,
@@ -90,7 +85,7 @@ const MainSchema = ({
             {
                 "@type": "ListItem",
                 "position": 1,
-                "name": menuItems[0].name[locale]
+                "name": intl.formatMessage({id: menuItems[0].name})
             }
         ]
     }
@@ -108,21 +103,21 @@ const MainSchema = ({
     edges && edges.map(article => {
         const articleData = {
             "@type": "Article",
-            "headline": article.node.metatitle || article.node.title,
+            "headline": article.fields.metatitle || article.fields.title,
             "inLanguage": locale,
-            "isFamilyFriendly": !article.node.nsfw,
+            "isFamilyFriendly": !article.fields.nsfw,
             "mainEntityOfPage": {
                 "@type": "WebPage",
-                "@id": Maindata.url + 'shibari' + article.node.link
+                "@id": Maindata.url + '/shibari' + article.fields.link
             },
             "author": {
                 "@type": "Person",
                 "@id": schemaAuthorAzzkyId,
                 "name": Maindata.author,
-                "jobTitle": locale === 'en' ? 'Shibari master' : 'Мастер шибари',
+                "jobTitle": intl.formatMessage({id: 'meta.nawashi'}),
                 "url": Maindata.socials.instagram
             },
-            "image": Maindata.imagePrefix + article.node.preview.file.url + metaPreviewSetting,
+            "image": Maindata.imagePrefix + article.fields.preview.fields.file.url + metaPreviewSetting,
             "publisher": {
                 "@id": schemaOrganisationId
             }
@@ -133,13 +128,13 @@ const MainSchema = ({
     data.gallery && data.gallery.map(image => {
         const imageData = {
             "@type": "ImageObject",
-            "contentUrl": Maindata.imagePrefix + image.file.url,
-            "url": Maindata.imagePrefix + image.file.url,
-            "width": image.width,
-            "height": image.height,
+            "contentUrl": Maindata.imagePrefix + image.fields.file.url,
+            "url": Maindata.imagePrefix + image.fields.file.url,
+            "width": image.fields.file.details.image.width,
+            "height": image.fields.file.details.image.height,
             "name": title,
             "description": description,
-            "representativeOfPage": thumbnail === Maindata.imagePrefix + image.file.url + metaPreviewSetting,
+            "representativeOfPage": thumbnail === Maindata.imagePrefix + image.fields.file.url + metaPreviewSetting,
             "datePublished": data.createdAt
         }
 
@@ -155,23 +150,23 @@ const MainSchema = ({
         "@type": "Person",
         "@id": schemaAuthorAzzkyId,
         "name": Maindata.author,
-        "jobTitle": locale === 'en' ? 'Shibari Master' : 'Шибари мастер',
+        "jobTitle": intl.formatMessage({id: 'meta.nawashi'}),
         "url": Maindata.socials.instagram
     })
     if(data.photographer) {
         schemaAuthors.push({
             "@type": "Person",
             "@id": schemaAuthorPhotographerId || schemaAuthorAzzkyId,
-            "name": data.photographer.name,
-            "jobTitle": locale === 'en' ? 'Photographer' : 'Фотограф',
-            "url": data.photographer.url || Maindata.socials.instagram
+            "name": data.photographer.fields.name,
+            "jobTitle": intl.formatMessage({id: 'meta.photographer'}),
+            "url": data.photographer.fields.url || Maindata.socials.instagram
         })
     }
     if(data.muah) {
         schemaAuthors.push({
             "@type": "Person",
             "name": data.muah.name,
-            "jobTitle": locale === 'en' ? 'Visagist' : 'Визажист',
+            "jobTitle": intl.formatMessage({id: 'meta.muah'}),
             "url": data.muah.url
         })
     }
@@ -226,7 +221,7 @@ const MainSchema = ({
     const schemaThumbAlt = `${schemaModelName} tied in rope bondage by Azzky`
 
     return (
-        <>
+        <Head>
             <title>{title}</title>
             <meta name="og:title"
                   property="og:title"
@@ -270,9 +265,10 @@ const MainSchema = ({
             <meta name="twitter:card"
                   property="twitter:card"
                   content="summary_large_image"/>
-            <script type="application/ld+json">{JSON.stringify(schemaSkeleton)}</script>
-        </>
+            <script type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaSkeleton) }}/>
+        </Head>
     )
 }
 
-export default MainSchema
+export default injectIntl(MainSchema)

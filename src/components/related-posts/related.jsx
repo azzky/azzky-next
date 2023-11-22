@@ -1,4 +1,3 @@
-import React from "react"
 import Link from 'next/link'
 import { SfwOrNsfwImage } from "@/components"
 import { FormattedMessage } from "react-intl"
@@ -11,21 +10,19 @@ const RelatedPost = (props) => {
             title,
             link,
             isPrevNsfw,
-            image
+            preview
         },
-        pageNsfw,
-        lang
+        pageNsfw
     } = props
-    const isVertical = image.height > image.width
+    const isVertical = preview.fields.file.details.image.height > preview.fields.file.details.image.width
     const imageClass = (isPrevNsfw && !pageNsfw) ?
         isVertical ? classes.imageNsfwV : classes.imageNsfw : ''
-    const separator = lang === 'ru' ? '/ru' : ''
 
     return (
         <div className={imageClass}>
-            <Link href={`${separator}/shibari${link}`}>
+            <Link href={'/shibari'+link}>
                 <SfwOrNsfwImage pageNsfw={pageNsfw}
-                    img={{data: image, nsfw: isPrevNsfw && !pageNsfw, title: title}}/>
+                    img={{data: preview.fields.file, nsfw: isPrevNsfw && !pageNsfw, title: title}}/>
             </Link>
         </div>
     )
@@ -34,8 +31,7 @@ const RelatedPost = (props) => {
 const RelatedPosts = ({
     prev,
     next,
-    pageNsfw,
-    lang
+    pageNsfw
 }) => {
     return (
         <>
@@ -44,11 +40,13 @@ const RelatedPosts = ({
             </h2>
             <div className={classes.root}>
                 {prev && <RelatedPost post={prev}
-                                      pageNsfw={pageNsfw}
-                                      lang={lang} />}
+                    pageNsfw={pageNsfw}
+                    title="prev"
+                />}
                 {next && <RelatedPost post={next}
-                                      pageNsfw={pageNsfw}
-                                      lang={lang} />}
+                    pageNsfw={pageNsfw}
+                    title="next"
+                />}
             </div>
         </>
     )

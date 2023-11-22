@@ -1,4 +1,3 @@
-import React from "react"
 import Sprite from '../svg-sprite'
 import Header from "../header/header"
 import Footer from '../footer/footer'

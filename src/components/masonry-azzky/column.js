@@ -1,4 +1,3 @@
-import React from "react"
 import { GalleryItem } from "./item"
 
 import * as classes from './column.module.scss'

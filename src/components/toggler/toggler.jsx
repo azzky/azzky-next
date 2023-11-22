@@ -1,6 +1,4 @@
 'use client'
-import React from 'react'
-
 import * as classes from './toggler.module.scss'
 
 const Toggler = (props) => {

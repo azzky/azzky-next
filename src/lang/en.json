@@ -57,5 +57,8 @@
     "menu.models": "Models",
     "menu.photographers": "Photographers",
     "menu.muahs": "Make-up / Hair",
-    "menu.contacts": "Contacts"
+    "menu.contacts": "Contacts",
+    "meta.nawashi": "Shibari master",
+    "meta.photographer": "Photographer",
+    "meta.muah": "Visagist"
 }
