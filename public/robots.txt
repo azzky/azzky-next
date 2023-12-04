@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://shibaribyazzky.com/sitemap.xml
+Host: https://shibaribyazzky.com
