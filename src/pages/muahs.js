@@ -1,6 +1,5 @@
 import Layout from "@/components/layout/layout"
 import Link from "next/link"
-import Image from "next/image"
 import { FormattedMessage } from "react-intl"
 import removeSpaces from "@/utils/removeSpaces"
 import { client } from '@/lib/contentful'
@@ -28,7 +27,7 @@ const ModelsPage = ({
                                 return (
                                     <Link href={'/muah/'+ removeSpaces(muah)}
                                         key={muah}>
-                                        {muah}
+                                        {`${muah} (${muahs[muah].count})`}
                                     </Link>
                                 )
                             })}
@@ -36,8 +35,9 @@ const ModelsPage = ({
                     </div>
                 </div>
             </div>
-            <img src="./404.jpg"
-                    alt=""/>
+            <img src="/404.jpg"
+                    alt=""
+                    className="heroImage"/>
         </section>
     </Layout>
 )
@@ -51,8 +51,15 @@ export const getStaticProps = async ({ locale }) => {
     });
     const muahs = {}
     res.items.map(node => {
+        // if muah exists - update counter
+        if(node.fields.muah?.fields?.name && muahs[node.fields.muah.fields.name]) {
+            muahs[node.fields.muah.fields.name].count = muahs[node.fields.muah.fields.name].count + 1
+        }// if no such muah - add them
         if(node.fields.muah?.fields?.name && !muahs[node.fields.muah.fields.name]) {
-            muahs[node.fields.muah.fields.name] = node.fields.muah.fields.url
+            muahs[node.fields.muah.fields.name] = {
+                url: node.fields.muah.fields.url || '',
+                count: 1
+            }
         }
     })
 

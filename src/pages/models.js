@@ -1,6 +1,5 @@
 import Layout from "@/components/layout/layout"
 import Link from "next/link"
-import Image from "next/image"
 import { FormattedMessage } from "react-intl"
 import removeSpaces from "@/utils/removeSpaces"
 import { client } from '@/lib/contentful'
@@ -28,7 +27,7 @@ const ModelsPage = ({
                                 return (
                                     <Link href={'/model/'+ removeSpaces(model)}
                                         key={model}>
-                                        {model}
+                                        {`${model} (${models[model].count})`}
                                     </Link>
                                 )
                             })}
@@ -36,8 +35,9 @@ const ModelsPage = ({
                     </div>
                 </div>
             </div>
-            <img src="./404.jpg"
-                    alt=""/>
+            <img src="/404.jpg"
+                    alt=""
+                    className="heroImage"/>
         </section>
     </Layout>
 )
@@ -52,8 +52,15 @@ export const getStaticProps = async ({ locale }) => {
     const models = {}
     res.items.map(node => {
         node.fields.model && node.fields.model.map(model => {
+            // if model exists - update counter
+            if(model?.fields?.name && models[model.fields.name]) {
+                models[model.fields.name].count = models[model.fields.name].count + 1
+            }// if no such model - add them
             if(model?.fields?.name && !models[model.fields.name]) {
-                models[model.fields.name] = model.fields.url || ''
+                models[model.fields.name] = {
+                    url: model.fields.url || '',
+                    count: 1
+                }
             }
         })
     })

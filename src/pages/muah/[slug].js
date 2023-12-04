@@ -64,14 +64,10 @@ export default Muah;
 
 export const getStaticProps = async ({ params, locale }) => {
     const { slug } = params;
-    console.log(slug.replaceAll('_', ' '));
-    const lang = locale === 'ru' ? 'ru' : 'en-US'
     const res = await client.getEntries({
         content_type: 'post',
-        // order: '-fields.date',
         'fields.muah.sys.contentType.sys.id': 'model',
-        "fields.muah.fields.name": slug.replaceAll('_', ' '),
-        // locale: lang
+        "fields.muah.fields.name": slug.replaceAll('_', ' ')
     });
 
     return {

@@ -1,6 +1,5 @@
 import Layout from "@/components/layout/layout"
 import Link from "next/link"
-import Image from "next/image"
 import { FormattedMessage } from "react-intl"
 import removeSpaces from "@/utils/removeSpaces"
 import { client } from '@/lib/contentful'
@@ -24,11 +23,11 @@ const TagsPage = ({
                             <FormattedMessage id="tags.description"/>
                         </p>
                         <div className={tagsClasses.root}>
-                            {tags.map(tag => {
+                            {Object.keys(tags).map(tag => {
                                 return (
                                     <Link href={'/tag/'+ removeSpaces(tag)}
                                         key={tag}>
-                                        {'#' +tag}
+                                        {`#${tag} (${tags[tag].count})`}
                                     </Link>
                                 )
                             })}
@@ -36,8 +35,9 @@ const TagsPage = ({
                     </div>
                 </div>
             </div>
-            <img src="./404.jpg"
-                    alt=""/>
+            <img src="/404.jpg"
+                    alt=""
+                    className="heroImage"/>
         </section>
     </Layout>
 )
@@ -49,17 +49,25 @@ export const getStaticProps = async ({ locale }) => {
         content_type: 'post',
         locale: locale === 'ru' ? 'ru' : 'en-US'
     });
-    let tags = []
+    let tags = {}
     res.items.map(node => {
-        if(node.fields.tags) {
-            tags = [...tags, ...node.fields.tags]
-        }
+        node.fields.tags && node.fields.tags.map(tag => {
+            // if tag exists - update counter
+            if(tags[tag]) {
+                tags[tag].count = tags[tag].count + 1
+            }
+            // if no such tag - add it
+            if(!tags[tag]) {
+                tags[tag] = {
+                    count: 1
+                }
+            }
+        })
     })
-    const uniqueTags = [...new Set(tags)];
 
     return {
         props: {
-            tags: uniqueTags,
+            tags,
             revalidate: 70,
             locale
         }

@@ -13,6 +13,7 @@ import * as classes from '@/components/layout/layout.module.scss'
 const Home = ({ posts, locale, intl }) => {
     const { pageNsfw, toggleNsfw, showNsfwPopup, setShowNsfwPopup, setNsfw, setToggle } = useCenzorship()
     const { renderVideo } = useVideo()
+
     return (
         <>
             <MainSchema isHome

@@ -1,6 +1,5 @@
 import Layout from "@/components/layout/layout"
 import Link from "next/link"
-import Image from "next/image"
 import { FormattedMessage } from "react-intl"
 import removeSpaces from "@/utils/removeSpaces"
 import { client } from '@/lib/contentful'
@@ -24,20 +23,19 @@ const ModelsPage = ({
                             <FormattedMessage id="photographers.description"/>
                         </p>
                         <div className={tagsClasses.root}>
-                            {Object.keys(photographers).map(photographer => {
-                                return (
+                            {Object.keys(photographers).map(photographer => (
                                     <Link href={'/photographer/'+ removeSpaces(photographer)}
                                         key={photographer}>
-                                        {photographer}
+                                        {`${photographer} (${photographers[photographer].count})`}
                                     </Link>
-                                )
-                            })}
+                            ))}
                         </div>
                     </div>
                 </div>
             </div>
-            <img src="./404.jpg"
-                    alt=""/>
+            <img src="/404.jpg"
+                    alt=""
+                    className="heroImage"/>
         </section>
     </Layout>
 )
@@ -51,8 +49,15 @@ export const getStaticProps = async ({ locale }) => {
     });
     const photographers = {}
     res.items.map(node => {
+        // if photographer exists - update counter
+        if(node.fields.photographer?.fields?.name && photographers[node.fields.photographer.fields.name]) {
+            photographers[node.fields.photographer.fields.name].count = photographers[node.fields.photographer.fields.name].count + 1
+        }// if no such photographer - add them
         if(node.fields.photographer?.fields?.name && !photographers[node.fields.photographer.fields.name]) {
-            photographers[node.fields.photographer.fields.name] = node.fields.photographer.fields.url || ''
+            photographers[node.fields.photographer.fields.name] = {
+                url: node.fields.photographer.fields.url || '',
+                count: 1
+            }
         }
     })
 
