@@ -10,13 +10,13 @@ const generateSiteMap = (posts) => `<?xml version="1.0" encoding="UTF-8"?>
         ${posts.map(post => `
             <url>
                 <loc>${`${Maindata.url}/shibari${post.fields.link}`}</loc>
-                <lastmod>2023-09-16T00:00:00.000Z${post.sys.updatedAt}</lastmod>
+                <lastmod>${post.sys.updatedAt}</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>0.7</priority>
             </url>
             <url>
                 <loc>${`${Maindata.url}/ru/shibari${post.fields.link}`}</loc>
-                <lastmod>2023-09-16T00:00:00.000Z${post.sys.updatedAt}</lastmod>
+                <lastmod>${post.sys.updatedAt}</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>0.7</priority>
             </url>
