@@ -19,6 +19,7 @@
     "react-dom": "^18",
     "react-image-lightbox": "^5.1.4",
     "react-intl": "^6.4.7",
+    "react-lazy-load-image-component": "^1.6.0",
     "react-share": "^4.4.1",
     "styled-jsx": "^5.1.2"
   },

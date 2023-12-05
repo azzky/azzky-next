@@ -1,6 +1,7 @@
 import { client } from '@/lib/contentful'
 import Link from 'next/link'
 import { injectIntl, FormattedMessage } from 'react-intl'
+import { LazyLoadComponent } from 'react-lazy-load-image-component'
 import { Layout } from '@/components'
 import { useVideo } from "@/hooks/useVideo"
 import useCenzorship from '@/hooks/useCenzorship'
@@ -52,17 +53,19 @@ const Home = ({ posts, locale, intl }) => {
                         </div>
                     </div>
                     <div className={classes.heroVideoRoot}>
-                        <video autoPlay loop className={classes.heroVideo}
+                        <LazyLoadComponent>
+                            <video autoPlay loop className={classes.heroVideo}
                                 muted
                                 playsInline
                                 id="background-video"
                                 poster={config.videoThumb}>
-                        {renderVideo && config.videoFormats.map(format => {
-                            return <source src={`/${config.videoFileName}.${format}`}
+                                {renderVideo && config.videoFormats.map(format => {
+                                    return <source src={`/${config.videoFileName}.${format}`}
                                         type={`video/${format}`}
                                         key={format} />
-                        })}
-                        </video>
+                                })}
+                            </video>
+                        </LazyLoadComponent>
                     </div>
                 </section>
                 <PostsGallery pageNsfw={pageNsfw}
