@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react"
+import React, {useCallback, useEffect, useState} from "react"
 import { FormattedMessage } from "react-intl"
 import Logo from './Logo'
 import Navigation from './Navigation'
@@ -22,15 +22,14 @@ const Header = (props) => {
     const [showMenu, toggleMenu] = useState(false)
     const [showSettings, toggleSettings] = useState(false)
     const clickHandler = useCallback(() => {
-        if(document?.body) document.body.style.overflow = !showSettings ? 'hidden' : 'auto'; // TODO check
         toggleSettings(prev => !prev)
     }, [showSettings])
 
-    const menuClickHandler = e => {
-        e.preventDefault();
-        if(document?.body) document.body.style.removeProperty('overflow');
-        navigate(e.currentTarget.href);
-    }
+    useEffect(() => {
+        if(document?.body) {
+            document.body.style.overflow = showSettings ? 'hidden' : 'auto';
+        }
+    }, [showSettings]);
 
     return(
     <header className={showMenu || showSettings ? classes.activeRoot : classes.root}>
@@ -46,7 +45,6 @@ const Header = (props) => {
                 <li key={i}
                             role="none">
                     <Link href={el.link}
-                            onClick={menuClickHandler}
                             role="menuitem">
                         <FormattedMessage id={el.name}/>
                     </Link>
