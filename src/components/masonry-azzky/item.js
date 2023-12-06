@@ -35,22 +35,21 @@ export const GalleryItem = ({
                 <SfwOrNsfwImage img={img}
                     pageNsfw={pageNsfw}/>
             </figure>
-        )
-            : (
-                <figure itemScope
-                    itemType="http://schema.org/ImageObject"
-                    className={className}
-                >
-                    <figcaption itemProp="name"
-                        className="visually-hidden">
-                        {metaDescription || `${img.title} ${config.galleryImageMiddleText} ${img.number}`}
-                    </figcaption>
-                    <SfwOrNsfwImage img={img}
-                        pageNsfw={pageNsfw}/>
-                    <button className={classes.opener}
-                        title={!img.nsfw || pageNsfw ? null : config.nsfwText}
-                        onClick={() =>
-                            settings.useLightBox &&
+        ) : (
+            <figure itemScope
+                itemType="http://schema.org/ImageObject"
+                className={className}
+            >
+                <figcaption itemProp="name"
+                    className="visually-hidden">
+                    {metaDescription || `${img.title} ${config.galleryImageMiddleText} ${img.number}`}
+                </figcaption>
+                <SfwOrNsfwImage img={img}
+                    pageNsfw={pageNsfw}/>
+                <button className={classes.opener}
+                    title={!img.nsfw || pageNsfw ? null : config.nsfwText}
+                    onClick={() =>
+                        settings.useLightBox &&
                         settings.lightBoxDispatch({
                             type: 'photoIndex_Open',
                             photoIndex:
@@ -58,11 +57,11 @@ export const GalleryItem = ({
                                     ? index
                                     : index + imgIndex * settings.columnNumber,
                         })}>
-                        <span className="visually-hidden">
-                            {config.imageOpenText}
-                        </span>
-                    </button>
-                </figure>
-            )
+                    <span className="visually-hidden">
+                        {config.imageOpenText}
+                    </span>
+                </button>
+            </figure>
+        )
     );
 };

@@ -83,6 +83,6 @@ ResponsiveGallery.propTypes = {
     filter: string,
     lang: string,
     pageNsfw: bool,
-    metaDescription,
+    metaDescription: string,
     $isPost: bool
 };

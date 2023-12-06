@@ -18,7 +18,7 @@ export const SfwOrNsfwImage = ({
         width: state ? 400 : 15,
         height: state ? 400 : 15,
         className: state ? null : 'nsfwImage',
-        quality: 100
+        quality: 95
     };
     return (
         <Image {...props} alt={title}/>
