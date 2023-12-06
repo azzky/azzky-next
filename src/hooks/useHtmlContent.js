@@ -1,12 +1,12 @@
 const prepareContent = (str) => {
-    if(str.includes('<p>')) {
-        str = str.replace('<p>','').split('').reverse().join('').replace('>p/<','').split('').reverse().join('')
+    if (str.includes('<p>')) {
+        str = str.replace('<p>','').split('').reverse().join('').replace('>p/<','').split('').reverse().join('');
     }
-    if(str.includes('\n')) {
-        str = str.replace(/\n/g, '<br/>')
+    if (str.includes('\n')) {
+        str = str.replace(/\n/g, '<br/>');
     }
 
-    return str
-}
+    return str;
+};
 
-export default prepareContent
+export default prepareContent;

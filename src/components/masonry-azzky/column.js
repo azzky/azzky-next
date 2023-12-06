@@ -1,6 +1,5 @@
-import { GalleryItem } from "./item"
-
-import * as classes from './column.module.scss'
+import { GalleryItem } from './item';
+import * as classes from './column.module.scss';
 
 export const GalleryColumn = ({
     column,
@@ -17,7 +16,9 @@ export const GalleryColumn = ({
                 imgIndex={imgIndex}
                 index={index}
                 metaDescription={metaDescription}
-                settings={settings} key={imgIndex} pageNsfw={pageNsfw} />
-            ))}
+                settings={settings}
+                key={imgIndex}
+                pageNsfw={pageNsfw}/>
+        ))}
     </div>
-)
+);

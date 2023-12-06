@@ -1,5 +1,5 @@
-'use client'
-import * as classes from './toggler.module.scss'
+'use client';
+import * as classes from './toggler.module.scss';
 
 const Toggler = (props) => {
     const {
@@ -7,17 +7,17 @@ const Toggler = (props) => {
         changeState,
         onStateLabel,
         offStateLabel        
-    } = props
+    } = props;
 
     return (
         <label className={$state ? classes.rootActive : classes.root}>
             <input  type="checkbox"
-                    role="switch"
-                    onChange={changeState}
-                    defaultChecked={$state}/>
+                role="switch"
+                onChange={changeState}
+                defaultChecked={$state}/>
             {$state ? onStateLabel : offStateLabel}
         </label>
-    )
-}
+    );
+};
 
-export default Toggler
+export default Toggler;

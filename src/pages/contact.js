@@ -1,11 +1,11 @@
 import { useForm, ValidationError } from '@formspree/react';
-import Layout from "@/components/layout/layout"
-import MainSchema from '@/components/meta/meta'
-import { Sidebar } from "@/components/sidebar/sidebar"
-// import Push from "@components/push-notifications"
-import useCenzorship from '@/hooks/useCenzorship'
-import { injectIntl, FormattedMessage } from "react-intl"
+import { injectIntl, FormattedMessage } from 'react-intl';
 
+import Layout from '@/components/layout/layout';
+import MainSchema from '@/components/meta/meta';
+import { Sidebar } from '@/components/sidebar/sidebar';
+// import Push from "@components/push-notifications"
+import useCenzorship from '@/hooks/useCenzorship';
 import * as classes from '@/styles/contact.module.scss';
 
 const Form = ({
@@ -24,9 +24,9 @@ const Form = ({
             <input type="text"
                 name="name"
                 id="name"
-                placeholder={intl.formatMessage({id: 'contactpage.nameLabel'})}
+                placeholder={intl.formatMessage({ id: 'contactpage.nameLabel' })}
                 required
-                aria-required="true" />
+                aria-required="true"/>
             <ValidationError 
                 prefix="Name" 
                 field="name"
@@ -39,9 +39,9 @@ const Form = ({
             <input type="text"
                 name="contact"
                 id="contact"
-                placeholder={intl.formatMessage({id: 'contactpage.contactLabel'})}
+                placeholder={intl.formatMessage({ id: 'contactpage.contactLabel' })}
                 required
-                aria-required="true" />
+                aria-required="true"/>
             <ValidationError 
                 prefix="Contact" 
                 field="contact"
@@ -55,9 +55,9 @@ const Form = ({
                 className={classes.message}
                 id="message"
                 rows="10"
-                placeholder={intl.formatMessage({id: 'contactpage.messageLabel'})}
+                placeholder={intl.formatMessage({ id: 'contactpage.messageLabel' })}
                 required
-                aria-required="true" />
+                aria-required="true"/>
             <ValidationError 
                 prefix="message" 
                 field="message"
@@ -76,7 +76,7 @@ const Form = ({
 const Contact = (props) => {
     const { intl, locale } = props;
     const { pageNsfw, toggleNsfw, showNsfwPopup, setShowNsfwPopup, setNsfw, setToggle } = useCenzorship();
-    const [state, handleSubmit] = useForm("mnqklwjp");
+    const [state, handleSubmit] = useForm('mnqklwjp');
 
     return (
         <Layout
@@ -89,11 +89,11 @@ const Contact = (props) => {
             toggleNsfw={toggleNsfw}
         >
             <MainSchema data={{
-                title: intl.formatMessage({id: 'contactpage.title'}),
-                metadescription: intl.formatMessage({id: 'contactpage.seoDescription'})
+                title: intl.formatMessage({ id: 'contactpage.title' }),
+                metadescription: intl.formatMessage({ id: 'contactpage.seoDescription' })
             }}
-                        locale={locale}
-                        isPage />
+            locale={locale}
+            isPage/>
             <h1>
                 <FormattedMessage id="contactpage.h1"/>
             </h1>
@@ -123,11 +123,13 @@ const Contact = (props) => {
                 <section className={classes.column}>
                     {state.succeeded ? (
                         <FormattedMessage id="contactpage.success"/>
-                    ) : (<Form
-                        state={state}
-                        handleSubmit={handleSubmit}
-                        intl={intl}
-                    />)}
+                    ) : (
+                        <Form
+                            state={state}
+                            handleSubmit={handleSubmit}
+                            intl={intl}
+                        />
+                    )}
                 </section>
             </div>
         </Layout>
@@ -141,5 +143,5 @@ export const getStaticProps = ({ locale }) => {
         props: {
             locale
         }
-    }
+    };
 };

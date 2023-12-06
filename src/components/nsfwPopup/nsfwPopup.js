@@ -1,15 +1,15 @@
-import { useNsfwPopup } from "./useNsfwPopup"
-import { FormattedMessage } from "react-intl"
+import { FormattedMessage } from 'react-intl';
 
-import * as classes from './nsfwPopup.module.scss'
+import { useNsfwPopup } from './useNsfwPopup';
+import * as classes from './nsfwPopup.module.scss';
 
 export const NsfwPopup = (props) => {
-    const { showNsfwPopup, setShowNsfwPopup, setNsfw, setToggle } = props
+    const { showNsfwPopup, setShowNsfwPopup, setNsfw, setToggle } = props;
     const {
         handleclose, handleconfirm
     } = useNsfwPopup({
         setShowNsfwPopup, setNsfw, setToggle
-    })
+    });
 
     return showNsfwPopup ? (
         <div className={classes.root}>
@@ -19,7 +19,7 @@ export const NsfwPopup = (props) => {
                 </p>
                 <div className={classes.buttons}>
                     <button onClick={handleconfirm}
-                            className={classes.primaryButton}>
+                        className={classes.primaryButton}>
                         <FormattedMessage id="nwfwPopup.proceed"/>
                     </button>
                     <button onClick={handleclose}
@@ -29,5 +29,5 @@ export const NsfwPopup = (props) => {
                 </div>
             </div>
         </div>
-    ) : null
-}
+    ) : null;
+};

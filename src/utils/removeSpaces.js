@@ -1,5 +1,5 @@
 const removeSpaces = (string) => {
-    return string.replaceAll(' ','_')
-}
+    return string.replaceAll(' ','_');
+};
 
-export default removeSpaces
+export default removeSpaces;

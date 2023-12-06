@@ -1,14 +1,15 @@
-import config from './config'
-import getDate from '@/hooks/useDate'
-import { FormattedMessage } from "react-intl"
+import { FormattedMessage } from 'react-intl';
 
-import * as classes from './footer.module.scss'
+import config from './config';
+import * as classes from './footer.module.scss';
+
+import getDate from '@/hooks/useDate';
 
 const Footer = (props) => {
-    const { $isFooterAbsolute } = props
-    const date = getDate()
+    const { $isFooterAbsolute } = props;
+    const date = getDate();
 
-    return(
+    return (
         <footer className={$isFooterAbsolute ? classes.absolute : classes.root}>
             <p>
                 <FormattedMessage id="footer.copyright" values={{ date }}/>
@@ -17,13 +18,15 @@ const Footer = (props) => {
                 <p className={classes.designer}>
                     <FormattedMessage id="footer.designerText"/>
                     <a href={config.designerLink}
-                       rel="noreferrer"
-                       target="_blank">
+                        rel="noreferrer"
+                        target="_blank"
+                    >
                         {config.designerName}
                     </a>
                 </p>
             </div>
         </footer>
-)}
+    );
+};
 
-export default Footer
+export default Footer;

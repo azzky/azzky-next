@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export const testRobots = () => {
-    let userAgent = ''
+    let userAgent = '';
     if (typeof window !== 'undefined') {
-        userAgent = navigator.userAgent
+        userAgent = navigator.userAgent;
     }
     const robots = new RegExp([
         /bot/,/spider/,/crawl/,                            // GENERAL TERMS
@@ -16,21 +16,21 @@ export const testRobots = () => {
         /facebook/,/instagram/,/pinterest/,/reddit/,       // SOCIAL MEDIA
         /slack/,/twitter/,/whatsapp/,/youtube/,
         /semrush/,                                         // OTHER
-        /Lighthouse/,
-    ].map((r) => r.source).join("|"),"i");               // BUILD REGEXP + "i" FLAG
+        /Lighthouse/
+    ].map((r) => r.source).join('|'),'i');               // BUILD REGEXP + "i" FLAG
 
     return robots.test(userAgent);
-}
+};
 
 export const useVideo = () => {
-    const isARobot = testRobots()
-    const [renderVideo, setRenderVideo] = useState(false)
+    const isARobot = testRobots();
+    const [renderVideo, setRenderVideo] = useState(false);
 
     useEffect(() => {
-        if (!renderVideo && !isARobot) setRenderVideo(true)
-    }, [setRenderVideo, renderVideo, isARobot])
+        if (!renderVideo && !isARobot) setRenderVideo(true);
+    }, [setRenderVideo, renderVideo, isARobot]);
 
     return {
         renderVideo
-    }
-}
+    };
+};

@@ -1,5 +1,5 @@
-import { ResponsiveGallery } from '@/components'
-import { lightboxSettings } from "@/constants"
+import { ResponsiveGallery } from '@/components';
+import { lightboxSettings } from '@/constants';
 
 // gallery on post page
 const PostGallery = (props) => {
@@ -9,14 +9,14 @@ const PostGallery = (props) => {
         pageNsfw,
         metaDescription,
         nsfwarr
-    } = props
-    let nsfwArr = []
+    } = props;
+    let nsfwArr = [];
     
-    if(isNsfw) {
-        nsfwArr = nsfwarr.split(',')
-        nsfwArr = nsfwArr.map((i) => parseInt(i))
+    if (isNsfw) {
+        nsfwArr = nsfwarr.split(',');
+        nsfwArr = nsfwArr.map((i) => parseInt(i));
     }
-    const images = []
+    const images = [];
     gallery.map((item, i) => (
         images.push({
             nsfw: nsfwArr.includes(i + 1),
@@ -25,18 +25,19 @@ const PostGallery = (props) => {
             number: i + 1,
             title: props.title
         })
-    ))
+    ));
 
-    return(
+    return (
         <ResponsiveGallery pageNsfw={pageNsfw}
-                           images={images}
-                           useLightBox
-                           hover={false}
-                           $isPost
-                           metaDescription={metaDescription}
-                           filters={false} />
-    )
-}
+            images={images}
+            useLightBox
+            hover={false}
+            $isPost
+            metaDescription={metaDescription}
+            filters={false}
+        />
+    );
+};
 
 //gallery on post type page (shibari, photo etc)
 const PostsGallery = (props) => {
@@ -47,13 +48,13 @@ const PostsGallery = (props) => {
         filter,
         $isPost,
         pageNsfw
-    } = props
-    const images = []
+    } = props;
+    const images = [];
 
     edges.map((i) => {
-        let prefix = '/'
-        if(lang === 'ru') {
-            prefix = '/ru/'
+        let prefix = '/';
+        if (lang === 'ru') {
+            prefix = '/ru/';
         }
         images.push(
             {
@@ -63,22 +64,22 @@ const PostsGallery = (props) => {
                 taglist: i.fields.taglist,
                 title: i.fields.title
             }
-        )
-        return null
-    })
-    return(
+        );
+        return null;
+    });
+    return (
         <ResponsiveGallery pageNsfw={pageNsfw}
-                           images={images}
-                           useLightBox={false}
-                           useLinks
-                           filters
-                           lang={lang}
-                           classes={classes}
-                           hover
-                           filter={filter}
-                           $isPost={$isPost}
+            images={images}
+            useLightBox={false}
+            useLinks
+            filters
+            lang={lang}
+            classes={classes}
+            hover
+            filter={filter}
+            $isPost={$isPost}
         />
-    )
-}
+    );
+};
 
 export { PostGallery, PostsGallery };

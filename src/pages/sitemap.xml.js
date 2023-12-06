@@ -1,4 +1,4 @@
-import Maindata from "@/constants";
+import Maindata from '@/constants';
 import { client } from '@/lib/contentful';
 
 const generateSiteMap = (posts) => `<?xml version="1.0" encoding="UTF-8"?>
@@ -26,8 +26,8 @@ const generateSiteMap = (posts) => `<?xml version="1.0" encoding="UTF-8"?>
 `;
 
 const SiteMap = () => {
-  // getServerSideProps will do the heavy lifting
-}
+    // getServerSideProps will do the heavy lifting
+};
 
 export async function getServerSideProps({ res }) {
     // We make an API call to gather the URLs for our site

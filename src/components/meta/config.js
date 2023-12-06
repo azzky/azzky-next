@@ -1,4 +1,4 @@
-import Maindata from "@/constants"
+import Maindata from '@/constants';
 
 const config = {
     location: 'Minsk, Belarus',
@@ -15,6 +15,6 @@ const config = {
         'en': 'contact me',
         'ru': 'свяжись со мной'
     }
-}
+};
 
-export default config
+export default config;

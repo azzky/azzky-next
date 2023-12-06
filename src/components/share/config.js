@@ -9,6 +9,6 @@ const config = {
         'en': 'Awesome shibari I found',
         'ru': ''
     }
-}
+};
 
-export default config
+export default config;

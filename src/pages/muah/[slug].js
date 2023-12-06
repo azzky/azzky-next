@@ -1,25 +1,25 @@
-import { client } from "@/lib/contentful";
-import useCenzorship from '@/hooks/useCenzorship'
-import { Layout } from '@/components'
-import {PostsGallery} from '@/components/gallery/gallery'
-import useWidth from '@/hooks/useWindowSize'
-import Image from "next/image";
-import { FormattedMessage } from 'react-intl'
-import SocialLink from "@/components/socialIcon/socialIcon"
+import Image from 'next/image';
+import { FormattedMessage } from 'react-intl';
 
-import * as classes from '@/components/layout/layout.module.scss'
+import { client } from '@/lib/contentful';
+import useCenzorship from '@/hooks/useCenzorship';
+import { Layout } from '@/components';
+import { PostsGallery } from '@/components/gallery/gallery';
+import useWidth from '@/hooks/useWindowSize';
+import SocialLink from '@/components/socialIcon/socialIcon';
+import * as classes from '@/components/layout/layout.module.scss';
 
 const Muah = ({ posts, locale }) => {
-    const { pageNsfw, toggleNsfw, showNsfwPopup, setShowNsfwPopup, setNsfw, setToggle } = useCenzorship()
-    const {isVertical} = useWidth()
+    const { pageNsfw, toggleNsfw, showNsfwPopup, setShowNsfwPopup, setNsfw, setToggle } = useCenzorship();
+    const { isVertical } = useWidth();
 
-    if (!posts) return null
+    if (!posts) return null;
     const wallpaperImg = posts[0].fields.wallpaper || posts[0].fields.mobileWallpaper ? 
         isVertical ? posts[0].fields.mobileWallpaper.fields : posts[0].fields.wallpaper.fields :
-        posts[0].fields.preview.fields
+        posts[0].fields.preview.fields;
     const wrapperClass = posts[0].fields.isWallNsfw && !pageNsfw ?
-        (isVertical? classes.heroWrapperNsfwV : classes.heroWrapperNsfw) :
-        classes.heroWrapper
+        (isVertical ? classes.heroWrapperNsfwV : classes.heroWrapperNsfw) :
+        classes.heroWrapper;
 
     const heroImageProps = !posts[0].fields.isWallNsfw || (posts[0].fields.isWallNsfw && pageNsfw) ? {
         fill: true
@@ -38,11 +38,11 @@ const Muah = ({ posts, locale }) => {
             setToggle={setToggle}
             toggleNsfw={toggleNsfw}
         >
-             <section className={wrapperClass}>
+            <section className={wrapperClass}>
                 <div className={classes.heroContent}>
                     <h1 className={classes.heroTitle}>
                         <FormattedMessage id="muah.title"
-                            values={{muah: posts[0].fields.muah.fields.name}}/>
+                            values={{ muah: posts[0].fields.muah.fields.name }}/>
                         <SocialLink link={posts[0].fields.muah.fields.url}/>
                     </h1>
                 </div>
@@ -53,9 +53,9 @@ const Muah = ({ posts, locale }) => {
                 />
             </section>
             <PostsGallery pageNsfw={pageNsfw}
-                        edges={posts}
-                        lang={locale}
-                        $isPost />
+                edges={posts}
+                lang={locale}
+                $isPost/>
         </Layout>
     );
 };
@@ -67,7 +67,7 @@ export const getStaticProps = async ({ params, locale }) => {
     const res = await client.getEntries({
         content_type: 'post',
         'fields.muah.sys.contentType.sys.id': 'model',
-        "fields.muah.fields.name": slug.replaceAll('_', ' ')
+        'fields.muah.fields.name': slug.replaceAll('_', ' ')
     });
 
     return {
@@ -83,12 +83,12 @@ export const getStaticPaths = async () => {
     const res = await client.getEntries({
         content_type: 'post'
     });
-    const muahs = {}
+    const muahs = {};
     res.items.map(node => {
-        if(node.fields.muah?.fields?.name && !muahs[node.fields.muah.fields.name]) {
-            muahs[node.fields.muah.fields.name] = node.fields.muah.fields.url || ''
+        if (node.fields.muah?.fields?.name && !muahs[node.fields.muah.fields.name]) {
+            muahs[node.fields.muah.fields.name] = node.fields.muah.fields.url || '';
         }
-    })
+    });
     const paths = Object.keys(muahs).map(item => ({
         params: { slug: item }
     }));
@@ -96,5 +96,5 @@ export const getStaticPaths = async () => {
     return {
         paths,
         fallback: true
-    }
-}
+    };
+};

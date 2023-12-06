@@ -1,19 +1,19 @@
-import { client } from '@/lib/contentful'
-import Link from 'next/link'
-import { injectIntl, FormattedMessage } from 'react-intl'
-import { LazyLoadComponent } from 'react-lazy-load-image-component'
-import { Layout } from '@/components'
-import { useVideo } from "@/hooks/useVideo"
-import useCenzorship from '@/hooks/useCenzorship'
-import { PostsGallery } from '@/components'
-import config from '@/components/meta/config'
-import MainSchema from '@/components/meta/meta'
+import Link from 'next/link';
+import { injectIntl, FormattedMessage } from 'react-intl';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 
-import * as classes from '@/components/layout/layout.module.scss'
+import { client } from '@/lib/contentful';
+import { Layout } from '@/components';
+import { useVideo } from '@/hooks/useVideo';
+import useCenzorship from '@/hooks/useCenzorship';
+import { PostsGallery } from '@/components';
+import config from '@/components/meta/config';
+import MainSchema from '@/components/meta/meta';
+import * as classes from '@/components/layout/layout.module.scss';
 
 const Home = ({ posts, locale, intl }) => {
-    const { pageNsfw, toggleNsfw, showNsfwPopup, setShowNsfwPopup, setNsfw, setToggle } = useCenzorship()
-    const { renderVideo } = useVideo()
+    const { pageNsfw, toggleNsfw, showNsfwPopup, setShowNsfwPopup, setNsfw, setToggle } = useCenzorship();
+    const { renderVideo } = useVideo();
 
     return (
         <>
@@ -21,9 +21,10 @@ const Home = ({ posts, locale, intl }) => {
                 locale={locale}
                 edges={posts}
                 data={{
-                    title: intl.formatMessage({id: 'homepage.seoTitle'}),
-                    metadescription: intl.formatMessage({id: 'homepage.seoDescription'})
-            }}/>
+                    title: intl.formatMessage({ id: 'homepage.seoTitle' }),
+                    metadescription: intl.formatMessage({ id: 'homepage.seoDescription' })
+                }}
+            />
             <Layout
                 toggler
                 hero
@@ -48,32 +49,40 @@ const Home = ({ posts, locale, intl }) => {
                                         <Link href="/contact">
                                             <FormattedMessage id="homepage.ctaButton"/>
                                         </Link>
-                                    )}}/>
+                                    ) }}
+                                />
                             </p>
                         </div>
                     </div>
                     <div className={classes.heroVideoRoot}>
                         <LazyLoadComponent>
-                            <video autoPlay loop className={classes.heroVideo}
+                            <video autoPlay
+                                loop
+                                className={classes.heroVideo}
                                 muted
                                 playsInline
                                 id="background-video"
-                                poster={config.videoThumb}>
+                                poster={config.videoThumb}
+                            >
                                 {renderVideo && config.videoFormats.map(format => {
-                                    return <source src={`/${config.videoFileName}.${format}`}
-                                        type={`video/${format}`}
-                                        key={format} />
+                                    return (
+                                        <source src={`/${config.videoFileName}.${format}`}
+                                            type={`video/${format}`}
+                                            key={format}
+                                        />
+                                    );
                                 })}
                             </video>
                         </LazyLoadComponent>
                     </div>
                 </section>
                 <PostsGallery pageNsfw={pageNsfw}
-                            edges={posts}
-                            lang={locale} />
+                    edges={posts}
+                    lang={locale}
+                />
             </Layout>
         </>
-    )
+    );
 };
 
 export default injectIntl(Home);
@@ -91,5 +100,5 @@ export const getStaticProps = async ({ locale }) => {
             revalidate: 70,
             locale
         }
-    }
+    };
 };

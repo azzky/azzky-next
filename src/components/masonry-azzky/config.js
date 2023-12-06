@@ -8,6 +8,6 @@ const config = {
     deviceMcolumncount: 2,
     deviceLcolumncount: 3,
     deviceXLcolumncount: 4
-}
+};
 
-export default config
+export default config;

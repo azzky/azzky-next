@@ -3,6 +3,6 @@ const config = {
         'ru': 'тут',
         'en': 'here'
     }
-}
+};
 
-export default config
+export default config;

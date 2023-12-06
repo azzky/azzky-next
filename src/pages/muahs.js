@@ -1,16 +1,18 @@
-import Layout from "@/components/layout/layout"
-import Link from "next/link"
-import { FormattedMessage } from "react-intl"
-import removeSpaces from "@/utils/removeSpaces"
-import { client } from '@/lib/contentful'
+import Link from 'next/link';
+import { FormattedMessage } from 'react-intl';
+import { number, shape, string } from 'prop-types';
 
-import * as classes from '@/components/layout/layout.module.scss'
-import * as tagsClasses from '@/styles/tags.module.scss'
+import Layout from '@/components/layout/layout';
+import removeSpaces from '@/utils/removeSpaces';
+import { client } from '@/lib/contentful';
+import * as classes from '@/components/layout/layout.module.scss';
+import * as tagsClasses from '@/styles/tags.module.scss';
 
-const ModelsPage = ({
+const MuahsPage = ({
     muahs
 }) => (
-    <Layout hero isFooterAbsolute
+    <Layout hero
+        isFooterAbsolute
         pageNsfw={false}>
         <section className={classes.heroWrapper}>
             <div className={classes.heroContent}>
@@ -25,43 +27,43 @@ const ModelsPage = ({
                         <div className={tagsClasses.root}>
                             {Object.keys(muahs).map(muah => {
                                 return (
-                                    <Link href={'/muah/'+ removeSpaces(muah)}
+                                    <Link href={'/muah/' + removeSpaces(muah)}
                                         key={muah}>
                                         {`${muah} (${muahs[muah].count})`}
                                     </Link>
-                                )
+                                );
                             })}
                         </div>
                     </div>
                 </div>
             </div>
             <img src="/404.jpg"
-                    alt=""
-                    className="heroImage"/>
+                alt=""
+                className="heroImage"/>
         </section>
     </Layout>
-)
+);
 
-export default ModelsPage
+export default MuahsPage;
 
 export const getStaticProps = async ({ locale }) => {
     const res = await client.getEntries({
         content_type: 'post',
         locale: locale === 'ru' ? 'ru' : 'en-US'
     });
-    const muahs = {}
+    const muahs = {};
     res.items.map(node => {
         // if muah exists - update counter
-        if(node.fields.muah?.fields?.name && muahs[node.fields.muah.fields.name]) {
-            muahs[node.fields.muah.fields.name].count = muahs[node.fields.muah.fields.name].count + 1
+        if (node.fields.muah?.fields?.name && muahs[node.fields.muah.fields.name]) {
+            muahs[node.fields.muah.fields.name].count = muahs[node.fields.muah.fields.name].count + 1;
         }// if no such muah - add them
-        if(node.fields.muah?.fields?.name && !muahs[node.fields.muah.fields.name]) {
+        if (node.fields.muah?.fields?.name && !muahs[node.fields.muah.fields.name]) {
             muahs[node.fields.muah.fields.name] = {
                 url: node.fields.muah.fields.url || '',
                 count: 1
-            }
+            };
         }
-    })
+    });
 
     return {
         props: {
@@ -69,5 +71,12 @@ export const getStaticProps = async ({ locale }) => {
             revalidate: 70,
             locale
         }
-    }
+    };
+};
+
+MuahsPage.propTypes = {
+    muahs: shape({
+        url: string,
+        count: number
+    })
 };

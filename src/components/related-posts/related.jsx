@@ -1,8 +1,9 @@
-import Link from 'next/link'
-import { SfwOrNsfwImage } from "@/components"
-import { FormattedMessage } from "react-intl"
+import Link from 'next/link';
+import { FormattedMessage } from 'react-intl';
 
-import * as classes from './related.module.scss'
+import * as classes from './related.module.scss';
+
+import { SfwOrNsfwImage } from '@/components';
 
 const RelatedPost = (props) => {
     const {
@@ -13,20 +14,20 @@ const RelatedPost = (props) => {
             preview
         },
         pageNsfw
-    } = props
-    const isVertical = preview.fields.file.details.image.height > preview.fields.file.details.image.width
+    } = props;
+    const isVertical = preview.fields.file.details.image.height > preview.fields.file.details.image.width;
     const imageClass = (isPrevNsfw && !pageNsfw) ?
-        isVertical ? classes.imageNsfwV : classes.imageNsfw : ''
+        isVertical ? classes.imageNsfwV : classes.imageNsfw : '';
 
     return (
         <div className={imageClass}>
-            <Link href={'/shibari'+link}>
+            <Link href={'/shibari' + link}>
                 <SfwOrNsfwImage pageNsfw={pageNsfw}
-                    img={{data: preview.fields.file, nsfw: isPrevNsfw && !pageNsfw, title: title}}/>
+                    img={{ data: preview.fields.file, nsfw: isPrevNsfw && !pageNsfw, title: title }}/>
             </Link>
         </div>
-    )
-}
+    );
+};
 
 const RelatedPosts = ({
     prev,
@@ -39,17 +40,21 @@ const RelatedPosts = ({
                 <FormattedMessage id="related.title"/>
             </h2>
             <div className={classes.root}>
-                {prev && <RelatedPost post={prev}
-                    pageNsfw={pageNsfw}
-                    title="prev"
-                />}
-                {next && <RelatedPost post={next}
-                    pageNsfw={pageNsfw}
-                    title="next"
-                />}
+                {prev && (
+                    <RelatedPost post={prev}
+                        pageNsfw={pageNsfw}
+                        title="prev"
+                    />
+                )}
+                {next && (
+                    <RelatedPost post={next}
+                        pageNsfw={pageNsfw}
+                        title="next"
+                    />
+                )}
             </div>
         </>
-    )
-}
+    );
+};
 
-export default RelatedPosts
+export default RelatedPosts;

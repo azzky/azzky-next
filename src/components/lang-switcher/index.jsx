@@ -3,17 +3,17 @@
 import { useCallback } from 'react';
 import { useRouter } from 'next/router';
 
-import * as classes from './langSwitcher.module.scss'
+import * as classes from './langSwitcher.module.scss';
 
 const Switcher = () => {
-    const router = useRouter()
+    const router = useRouter();
 
     const handler = useCallback(() => {
         const path = router.asPath;
-        router.push(path, path, { locale: router.locale === 'ru' ? 'en' : 'ru' })
+        router.push(path, path, { locale: router.locale === 'ru' ? 'en' : 'ru' });
     }, [router]);
 
-    return(
+    return (
         <>
             <div className={classes.root}>
                 <button onClick={handler}
@@ -22,7 +22,7 @@ const Switcher = () => {
                 </button>
             </div>
         </>
-    )
-}
+    );
+};
 
-export default Switcher
+export default Switcher;

@@ -1,10 +1,10 @@
-import { IntlProvider } from "react-intl";
-import { useRouter } from "next/router";
+import { IntlProvider } from 'react-intl';
+import { useRouter } from 'next/router';
 
-import en from "../lang/en.json";
-import ru from "../lang/ru.json";
+import en from '../lang/en.json';
+import ru from '../lang/ru.json';
 
-import "../styles/global.scss";
+import '../styles/global.scss';
 
 const messages = {
     ru,

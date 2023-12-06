@@ -1,26 +1,26 @@
-import { useState } from "react";
-import { client } from "@/lib/contentful";
-import useCenzorship from '@/hooks/useCenzorship'
-import { Layout } from '@/components'
-import {PostGallery} from '@/components/gallery/gallery'
-import MainSchema from '@/components/meta/meta'
-import Share from '@/components/share/share'
-import Tags from '@/components/tags'
-import Team from '@/components/team/team'
-import { Modal, ModalButton } from '@/components/modal/modal'
-import checkPopupWidth from '@/hooks/usePopupWidth'
-import prepareContent from '@/hooks/useHtmlContent'
-import RelatedPosts from '@/components/related-posts/related'
-import useWidth from '@/hooks/useWindowSize'
-import Image from "next/image";
-import Maindata, { metaPreviewSetting } from '@/constants'
+import { useState } from 'react';
+import Image from 'next/image';
 
-import * as classes from '@/components/layout/layout.module.scss'
+import { client } from '@/lib/contentful';
+import useCenzorship from '@/hooks/useCenzorship';
+import { Layout } from '@/components';
+import { PostGallery } from '@/components/gallery/gallery';
+import MainSchema from '@/components/meta/meta';
+import Share from '@/components/share/share';
+import Tags from '@/components/tags';
+import Team from '@/components/team/team';
+import { Modal, ModalButton } from '@/components/modal/modal';
+import checkPopupWidth from '@/hooks/usePopupWidth';
+import prepareContent from '@/hooks/useHtmlContent';
+import RelatedPosts from '@/components/related-posts/related';
+import useWidth from '@/hooks/useWindowSize';
+import Maindata, { metaPreviewSetting } from '@/constants';
+import * as classes from '@/components/layout/layout.module.scss';
 
 const Post = ({ post, locale, createdAt, prev, next }) => {
-    const { pageNsfw, toggleNsfw, showNsfwPopup, setShowNsfwPopup, setNsfw, setToggle } = useCenzorship()
-    const [isShowModal, showModal] = useState(false)
-    const {isVertical} = useWidth()
+    const { pageNsfw, toggleNsfw, showNsfwPopup, setShowNsfwPopup, setNsfw, setToggle } = useCenzorship();
+    const [isShowModal, showModal] = useState(false);
+    const { isVertical } = useWidth();
 
     if (!post) return null;
     const {
@@ -48,32 +48,32 @@ const Post = ({ post, locale, createdAt, prev, next }) => {
     let readyData,
         paddingTopValue,
         popupSize,
-        popupRatioLocal
+        popupRatioLocal;
 
-    if(popup) {
-        const rawData = popup
-        const a = JSON.stringify(rawData)
-        readyData = JSON.parse(a).content[0].content[0].value
+    if (popup) {
+        const rawData = popup;
+        const a = JSON.stringify(rawData);
+        readyData = JSON.parse(a).content[0].content[0].value;
 
         popupRatioLocal = popupRatio ? {
             h: popupRatio.split('/')[0],
             w: popupRatio.split('/')[1]
-        } : 0
+        } : 0;
 
-        popupSize = checkPopupWidth(popupRatioLocal)
+        popupSize = checkPopupWidth(popupRatioLocal);
 
-        paddingTopValue = popupRatio && popupSize?.maximumHeight ? popupSize.maximumHeight : 0
+        paddingTopValue = popupRatio && popupSize?.maximumHeight ? popupSize.maximumHeight : 0;
     }
 
-    const textData = content ? prepareContent(content) : null
+    const textData = content ? prepareContent(content) : null;
 
     const wallpaperImg = wallpaper || mobileWallpaper ? 
         isVertical ? mobileWallpaper.fields : wallpaper.fields :
-        preview.fields
+        preview.fields;
 
     const wrapperClass = isWallNsfw && !pageNsfw ?
-        (isVertical? classes.heroWrapperNsfwV : classes.heroWrapperNsfw) :
-        classes.heroWrapper
+        (isVertical ? classes.heroWrapperNsfwV : classes.heroWrapperNsfw) :
+        classes.heroWrapper;
 
     const heroImageProps = !isWallNsfw || (isWallNsfw && pageNsfw) ? {
         fill: true
@@ -96,7 +96,7 @@ const Post = ({ post, locale, createdAt, prev, next }) => {
         significantLinks: [
             Maindata.url + '/shibari' + next.link, Maindata.url + '/shibari' + prev.link
         ]
-    }
+    };
 
     return (
         <>
@@ -104,7 +104,7 @@ const Post = ({ post, locale, createdAt, prev, next }) => {
                 data={metaData}    
                 locale={locale}
             />
-        <Layout hero
+            <Layout hero
                 dark
                 pageNsfw={pageNsfw}
                 showNsfwPopup={showNsfwPopup}
@@ -112,57 +112,57 @@ const Post = ({ post, locale, createdAt, prev, next }) => {
                 setNsfw={setNsfw}
                 setToggle={setToggle}
                 toggleNsfw={toggleNsfw}>
-            <section className={wrapperClass}>
-                <div className={classes.heroContentPost}>
-                    <div>
-                        <h1 className={classes.heroTitle}>{title}</h1>
-                        {content && (
-                            <div className={classes.heroDescription}>
-                                <p>
-                                    <span dangerouslySetInnerHTML={{ __html: textData }}/>
-                                    {popup && <ModalButton showModal={showModal} node_locale={locale} />}
-                                </p>
-                            </div>
-                        )}
-                    </div>
-                    <Team models={model}
+                <section className={wrapperClass}>
+                    <div className={classes.heroContentPost}>
+                        <div>
+                            <h1 className={classes.heroTitle}>{title}</h1>
+                            {content && (
+                                <div className={classes.heroDescription}>
+                                    <p>
+                                        <span dangerouslySetInnerHTML={{ __html: textData }}/>
+                                        {popup && <ModalButton showModal={showModal} node_locale={locale}/>}
+                                    </p>
+                                </div>
+                            )}
+                        </div>
+                        <Team models={model}
                             nawashi={nawashi}
                             photographer={photographer?.fields}
                             muah={muah?.fields}
-                            lang={locale} />
-                    <Share preview={preview?.file?.url}
+                            lang={locale}/>
+                        <Share preview={preview?.file?.url}
                             title={title + ' shibari by Azzky'}
                             lang={locale}/>
-                </div>
-                <Image src={wallpaperImg.file.url}
-                    alt={title}
-                    className="heroImage"
-                    {...heroImageProps}
-                />
-            </section>
-            <Tags tags={tags}
-                lang={locale}/>
-            <PostGallery pageNsfw={pageNsfw}
-                        nsfw={nsfw}
-                        title={title}
-                        gallery={gallery}
-                        metaDescription={metadescription}
-                        nsfwarr={nsfwarr} />
-            {popup && (
-                <Modal isShowModal={isShowModal}
+                    </div>
+                    <Image src={wallpaperImg.file.url}
+                        alt={title}
+                        className="heroImage"
+                        {...heroImageProps}
+                    />
+                </section>
+                <Tags tags={tags}
+                    lang={locale}/>
+                <PostGallery pageNsfw={pageNsfw}
+                    nsfw={nsfw}
+                    title={title}
+                    gallery={gallery}
+                    metaDescription={metadescription}
+                    nsfwarr={nsfwarr}/>
+                {popup && (
+                    <Modal isShowModal={isShowModal}
                         showModal={showModal}
                         paddingTopValue={paddingTopValue?.toFixed(0) || 0}
                         size={popupSize?.popupWidth?.toFixed(0) || 0}
-                        pageNsfw={pageNsfw} >
-                    {isShowModal && <div dangerouslySetInnerHTML={{ __html: readyData }}/>}
-                </Modal>
-            )}
-            {(prev && next) &&
-                <RelatedPosts next={next}
-                              prev={prev}
-                              pageNsfw={pageNsfw}/>
-            }
-        </Layout>
+                        pageNsfw={pageNsfw}>
+                        {isShowModal && <div dangerouslySetInnerHTML={{ __html: readyData }}/>}
+                    </Modal>
+                )}
+                {(prev && next) && (
+                    <RelatedPosts next={next}
+                        prev={prev}
+                        pageNsfw={pageNsfw}/>
+                )}
+            </Layout>
         </>
     );
 };
@@ -171,7 +171,7 @@ export default Post;
 
 export const getStaticProps = async ({ params, locale }) => {
     const { slug } = params;
-    const lang = locale === 'ru' ? 'ru' : 'en-US'
+    const lang = locale === 'ru' ? 'ru' : 'en-US';
     const res = await client.getEntries({
         content_type: 'post',
         order: '-fields.date',
@@ -189,10 +189,10 @@ export const getStaticProps = async ({ params, locale }) => {
     });
     const prev = postIndex === 0 ? res.items[postIndex + 1] : // case newest
         postIndex === res.items.length - 1 ? res.items[0] : // case oldest
-        res.items[postIndex + 1]; // other
+            res.items[postIndex + 1]; // other
     const next = postIndex === 0 ? res.items[res.items.length - 1] : // case newest
-        postIndex === res.items.length -1 ? res.items[postIndex - 1] : // case oldest
-        res.items[postIndex - 1]; // other
+        postIndex === res.items.length - 1 ? res.items[postIndex - 1] : // case oldest
+            res.items[postIndex - 1]; // other
     return {
         props: {
             post: currentPost?.fields || {},
@@ -219,5 +219,5 @@ export const getStaticPaths = async () => {
     return {
         paths,
         fallback: true
-    }
-}
+    };
+};

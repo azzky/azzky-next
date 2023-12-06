@@ -1,1 +1,1 @@
-export { default as getSocial } from './getSocial'
+export { default as getSocial } from './getSocial';

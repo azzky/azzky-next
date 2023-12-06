@@ -1,4 +1,4 @@
-import * as classes from './settings.module.scss'
+import * as classes from './settings.module.scss';
 
 const Settings = (props) => {
     const {
@@ -6,22 +6,23 @@ const Settings = (props) => {
         showSettings,
         isFooterAbsolute,
         children
-    } = props
+    } = props;
     return (
         <section className={classes.root}>
             <button type="button"
-                     aria-label="setings button"
-                     className={showSettings ? classes.triggerActive : classes.trigger}
-                     onClick={() => toggleSettings((prev) => !prev)}>
+                aria-label="setings button"
+                className={showSettings ? classes.triggerActive : classes.trigger}
+                onClick={() => toggleSettings((prev) => !prev)}>
                 <svg width="24" height="24">
                     <use href="#settings"/>
                 </svg>
             </button>
-            <div className={showSettings ? classes.settingsActive : isFooterAbsolute ? classes.settingsLifted : classes.settings}>
+            <div className={
+                showSettings ? classes.settingsActive : isFooterAbsolute ? classes.settingsLifted : classes.settings}>
                 {children}
             </div>
         </section>
-    )
-}
+    );
+};
 
-export default Settings
+export default Settings;
