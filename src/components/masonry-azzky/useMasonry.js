@@ -85,6 +85,7 @@ const useMasonry = ({
         images = tempArr.filter((node) => node.taglist && node.taglist.includes(activeFilterName));
     }
 
+    // eslint-disable-next-line unused-imports/no-unused-vars
     let imgSubArray = [...Array(columnNumber)].map((_, i) => []);
 
     for (let i = 0; i < images.length; i++) {
