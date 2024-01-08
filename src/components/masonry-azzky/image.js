@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { bool, string } from 'prop-types';
+import { bool } from 'prop-types';
 
 export const SfwOrNsfwImage = ({
     img: {
@@ -26,12 +26,5 @@ export const SfwOrNsfwImage = ({
 };
 
 SfwOrNsfwImage.propTypes = {
-    img: {
-        nsfw: bool,
-        data: {
-            url: string
-        },
-        title: string
-    },
     pageNsfw: bool
 };

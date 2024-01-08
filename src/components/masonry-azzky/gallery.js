@@ -1,4 +1,4 @@
-import { array, bool, func, shape, string } from 'prop-types';
+import { array, bool, string } from 'prop-types';
 
 import ImagesLightBox from '../gallery/lightbox';
 import Filters from './filters';
@@ -74,12 +74,10 @@ export default ResponsiveGallery;
 
 ResponsiveGallery.propTypes = {
     images: array,
-    useLightBox: func,
-    useLinks: func,
+    useLightBox: bool,
+    useLinks: bool,
     hover: bool,
-    filters: shape([
-        string
-    ]),
+    filters: bool,
     filter: string,
     lang: string,
     pageNsfw: bool,
