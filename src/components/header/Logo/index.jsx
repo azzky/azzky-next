@@ -7,7 +7,7 @@ const Logo = () => (
         className={classes.root}>
         <img src="/logo.svg"
             className={classes.image}
-            alt="logo"
+            alt="Shibari by Azzky logo"
             width="81"
             height="17"/>
     </Link>

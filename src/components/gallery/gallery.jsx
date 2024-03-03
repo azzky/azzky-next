@@ -23,7 +23,7 @@ const PostGallery = (props) => {
             data: item.fields.file,
             full: item.fields.file.url + lightboxSettings,
             number: i + 1,
-            title: props.title
+            title: props.title + ' - gallery image ' + (i + 1)
         })
     ));
 
