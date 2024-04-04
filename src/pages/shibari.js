@@ -1,40 +1,19 @@
 import Link from 'next/link';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import Slider from 'react-slick';
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 import { client } from '@/lib/contentful';
 import { Layout } from '@/components';
 import { useVideo } from '@/hooks/useVideo';
 import useCenzorship from '@/hooks/useCenzorship';
-// import { PostsGallery } from '@/components';
+import { PostsGallery } from '@/components';
 import config from '@/components/meta/config';
 import MainSchema from '@/components/meta/meta';
 import * as classes from '@/components/layout/layout.module.scss';
 
-const Home = ({ posts, locale, intl, feedback }) => {
+const Home = ({ posts, locale, intl }) => {
     const { pageNsfw, toggleNsfw, showNsfwPopup, setShowNsfwPopup, setNsfw, setToggle } = useCenzorship();
     const { renderVideo } = useVideo();
-
-    console.log(feedback);
-
-    const settings = {
-        arrows: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 3,
-        slidesToScroll: 3,
-        responsive: [
-            {
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                }
-            }
-        ]
-    };
 
     return (
         <>
@@ -97,19 +76,10 @@ const Home = ({ posts, locale, intl, feedback }) => {
                         </LazyLoadComponent>
                     </div>
                 </section>
-                <Slider {...settings}>
-                    {feedback.map((el, i) => {
-                        return (
-                            <div key={el.fields.name + i}>
-                                {documentToReactComponents(el.fields.text)}
-                            </div>
-                        );
-                    })}
-                </Slider>
-                {/* <PostsGallery pageNsfw={pageNsfw}
+                <PostsGallery pageNsfw={pageNsfw}
                     edges={posts}
                     lang={locale}
-                /> */}
+                />
             </Layout>
         </>
     );
@@ -124,16 +94,9 @@ export const getStaticProps = async ({ locale }) => {
         locale: locale === 'ru' ? 'ru' : 'en-US'
     });
 
-    const feedback = await client.getEntries({
-        content_type: 'feedback',
-        order: '-fields.date',
-        // locale: locale === 'ru' ? 'ru' : 'en-US'
-    });
-
     return {
         props: {
             posts: res.items,
-            feedback: feedback.items,
             revalidate: 70,
             locale
         }
