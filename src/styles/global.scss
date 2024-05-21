@@ -74,10 +74,10 @@ img {
     max-inline-size: 100%;
     block-size: auto;
     transition: filter .4s ease-in-out !important;
+    display: block;
 
     &.nsfwImage {
         min-width: 100%;
-        display: block;
     }
 }
 
