@@ -1,5 +1,5 @@
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { array, bool, func } from 'prop-types';
+import { array, bool, func, object, oneOfType } from 'prop-types';
 
 import Sprite from '../svg-sprite';
 import Header from '../header/header';
@@ -43,5 +43,5 @@ Layout.propTypes = {
     setNsfw: func,
     setToggle: func,
     isFooterAbsolute: bool,
-    children: array
+    children: oneOfType([array, object])
 };
