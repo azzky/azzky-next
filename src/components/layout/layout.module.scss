@@ -189,6 +189,12 @@
     // filter: grayscale(1); /* comment on if wanted color */
 }
 
+.videoTrigger {
+    position: absolute;
+    right: 8vw;
+    bottom: 100px;
+}
+
 @media screen and (min-width: $screen__m) {
     .heroContent {
         position: initial;
@@ -233,5 +239,10 @@
         top: 280px;
         @include hero-element();
         max-inline-size: 810px;
+    }
+
+    .videoTrigger {
+        top: 8vw;
+        bottom: auto;
     }
 }

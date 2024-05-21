@@ -13,7 +13,7 @@ import * as classes from '@/components/layout/layout.module.scss';
 
 const Home = ({ posts, locale, intl }) => {
     const { pageNsfw, toggleNsfw, showNsfwPopup, setShowNsfwPopup, setNsfw, setToggle } = useCenzorship();
-    const { renderVideo } = useVideo();
+    const { renderVideo, setRenderVideo } = useVideo();
 
     return (
         <>
@@ -75,6 +75,17 @@ const Home = ({ posts, locale, intl }) => {
                             </video>
                         </LazyLoadComponent>
                     </div>
+                    {!renderVideo && (
+                        <button className={classes.videoTrigger}
+                            onClick={() => setRenderVideo(true)}>
+                            <span className="visually-hidden">
+                                <FormattedMessage id="homepage.playVideo"/>
+                            </span>
+                            <svg width="50" height="50">
+                                <use href="#play"/>
+                            </svg>
+                        </button>
+                    )}
                 </section>
                 <PostsGallery pageNsfw={pageNsfw}
                     edges={posts}
