@@ -22,16 +22,18 @@ const TagsPage = ({ tags }) => (
                         <p>
                             <FormattedMessage id="tags.description"/>
                         </p>
-                        <div className={tagsClasses.root}>
+                        <ul className={tagsClasses.root}>
                             {Object.keys(tags).map(tag => {
                                 return (
-                                    <Link href={'/tag/' + removeSpaces(tag)}
-                                        key={tag}>
-                                        {`#${tag} (${tags[tag].count})`}
-                                    </Link>
+                                    <li key={tag}>
+                                        <Link href={'/tag/' + removeSpaces(tag)}>
+                                            {`#${tag}`}
+                                        </Link>
+                                        {` (${tags[tag].count})`}
+                                    </li>
                                 );
                             })}
-                        </div>
+                        </ul>
                     </div>
                 </div>
             </div>

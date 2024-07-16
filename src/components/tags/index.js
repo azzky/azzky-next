@@ -5,18 +5,19 @@ import * as classes from './tags.module.scss';
 const Tags = ({ tags, lang }) => {
     if (!tags) return null;
     return (
-        <div className={classes.root}>
+        <ul className={classes.root}>
             {tags && tags.map(tag => {
                 const formattedTag = tag.replaceAll(' ', '_');
                 const prefix = lang === 'ru' ? '/ru' : '';
                 return (
-                    <Link href={prefix + '/tag/' + formattedTag}
-                        key={formattedTag}>
-                        {'#' + tag}
-                    </Link>
+                    <li key={formattedTag}>
+                        <Link href={prefix + '/tag/' + formattedTag}>
+                            {'#' + tag}
+                        </Link>
+                    </li>
                 );
             })}
-        </div>
+        </ul>
     );
 };
 

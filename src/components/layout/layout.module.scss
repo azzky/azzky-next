@@ -152,6 +152,10 @@
         color: inherit;
         text-decoration: underline;
     }
+
+    & ul {
+        list-style: none;
+    }
 }
 
 .heroDescription404 {
