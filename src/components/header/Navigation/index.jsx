@@ -25,7 +25,7 @@ const Navigation = (props) => {
             </button>
             <div id="menu__list"
                 className={$active ? classes.menuActive : classes.menu}>
-                <ul role="menu">
+                <ul role="menubar">
                     {menuItems.map((el, i) => (
                         <li key={i}
                             role="none">

@@ -42,7 +42,7 @@ const Header = (props) => {
                 toggleSettings={clickHandler}
                 isFooterAbsolute={isFooterAbsolute}
             >
-                <ul className={classes.mobileMenuItems}>
+                <ul className={classes.mobileMenuItems} role="menubar">
                     {menuItems.map((el, i) => {
                         return (
                             <li key={i}
