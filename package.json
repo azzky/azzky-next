@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@contentful/rich-text-react-renderer": "^15.22.11",
     "@fontsource/montserrat": "^5.0.18",
     "@formspree/react": "^2.5.1",
     "@vercel/speed-insights": "^1.0.12",

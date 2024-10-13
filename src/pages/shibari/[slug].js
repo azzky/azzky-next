@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Image from 'next/image';
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 import { client } from '@/lib/contentful';
 import useCenzorship from '@/hooks/useCenzorship';
@@ -11,7 +12,6 @@ import Tags from '@/components/tags';
 import Team from '@/components/team/team';
 import { Modal, ModalButton } from '@/components/modal/modal';
 import checkPopupWidth from '@/hooks/usePopupWidth';
-import prepareContent from '@/hooks/useHtmlContent';
 import RelatedPosts from '@/components/related-posts/related';
 import useWidth from '@/hooks/useWindowSize';
 import Maindata, { metaPreviewSetting } from '@/constants';
@@ -23,8 +23,9 @@ const Post = ({ post, locale, createdAt, prev, next }) => {
     const { isVertical } = useWidth();
 
     if (!post) return null;
+    
     const {
-        content,
+        richContent,
         wallpaper,
         mobileWallpaper,
         popupRatio,
@@ -64,8 +65,6 @@ const Post = ({ post, locale, createdAt, prev, next }) => {
 
         paddingTopValue = popupRatio && popupSize?.maximumHeight ? popupSize.maximumHeight : 0;
     }
-
-    const textData = content ? prepareContent(content) : null;
 
     const wallpaperImg = wallpaper || mobileWallpaper ? 
         isVertical ? mobileWallpaper.fields : wallpaper.fields :
@@ -116,12 +115,10 @@ const Post = ({ post, locale, createdAt, prev, next }) => {
                     <div className={classes.heroContentPost}>
                         <div>
                             <h1 className={classes.heroTitle}>{title}</h1>
-                            {content && (
+                            {richContent && (
                                 <div className={classes.heroDescription}>
-                                    <p>
-                                        <span dangerouslySetInnerHTML={{ __html: textData }}/>
-                                        {popup && <ModalButton showModal={showModal} node_locale={locale}/>}
-                                    </p>
+                                    {documentToReactComponents(richContent)}
+                                    {popup && <ModalButton showModal={showModal} node_locale={locale}/>}
                                 </div>
                             )}
                         </div>
