@@ -1,11 +1,16 @@
 import Maindata from '@/constants';
 import { client } from '@/lib/contentful';
 
-const generateSiteMap = (posts) => `<?xml version="1.0" encoding="UTF-8"?>
+const generateSiteMap = (posts) => {
+    const date = new Date().toISOString();
+    return (`<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
         <!--We manually set the URLs we know already-->
         <url>
             <loc>${Maindata.url}</loc>
+            <lastmod>${date}</lastmod>
+            <changefreq>daily</changefreq>
+            <priority>1</priority>
         </url>
         ${posts.map(post => `
             <url>
@@ -23,7 +28,8 @@ const generateSiteMap = (posts) => `<?xml version="1.0" encoding="UTF-8"?>
         `).join('')
         }
     </urlset>
-`;
+`);
+};
 
 const SiteMap = () => {
     // getServerSideProps will do the heavy lifting
