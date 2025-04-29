@@ -62,5 +62,10 @@
     "menu.contacts": " Контакты",
     "meta.nawashi": "Мастер шибари",
     "meta.photographer": "Фотограф",
-    "meta.muah": "Визажист"
+    "meta.muah": "Визажист",
+    "menu.open": "Открыть навигационное меню",
+    "menu.close": "Закрыть навигационное меню",
+    "header.homepage": "Ссылка на главную",
+    "lang.en": "Смена языка на английский",
+    "toggler.label": "Смена цензуры, сейчас "
 }

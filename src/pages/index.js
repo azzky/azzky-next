@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import Head from 'next/head';
 
 import { client } from '@/lib/contentful';
 import { Layout } from '@/components';
@@ -17,6 +18,14 @@ const Home = ({ posts, locale, intl }) => {
 
     return (
         <>
+            <Head>
+                <link
+                    rel="preload"
+                    as="image"
+                    href={config.videoThumb}
+                    type="image/webp"
+                />
+            </Head>
             <MainSchema isHome
                 locale={locale}
                 edges={posts}

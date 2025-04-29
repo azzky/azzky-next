@@ -1,11 +1,12 @@
 'use client';
-
+import { injectIntl } from 'react-intl';
 import { useCallback } from 'react';
 import { useRouter } from 'next/router';
+import { FormattedMessage } from 'react-intl';
 
 import * as classes from './langSwitcher.module.scss';
 
-const Switcher = () => {
+const Switcher = ({ intl }) => {
     const router = useRouter();
     const otherLang = router.locale === 'ru' ? 'en' : 'ru';
 
@@ -18,7 +19,11 @@ const Switcher = () => {
         <>
             <div className={classes.root}>
                 <button onClick={handler}
+                    title={intl.formatMessage({ id: `lang.${otherLang}` })}
                     className={classes.button}>
+                    <span className="visually-hidden">
+                        <FormattedMessage id={`lang.${otherLang}`}/>
+                    </span>
                     {otherLang}
                 </button>
             </div>
@@ -26,4 +31,4 @@ const Switcher = () => {
     );
 };
 
-export default Switcher;
+export default injectIntl(Switcher);

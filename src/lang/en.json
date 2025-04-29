@@ -62,5 +62,10 @@
     "menu.contacts": "Contacts",
     "meta.nawashi": "Shibari master",
     "meta.photographer": "Photographer",
-    "meta.muah": "Visagist"
+    "meta.muah": "Visagist",
+    "menu.open": "Open navigation menu",
+    "menu.close": "Close navigation menu",
+    "header.homepage": "Link to homepage",
+    "lang.ru": "Language switcher, click for Russian",
+    "toggler.label": "Toggle cenzorship, currently "
 }
