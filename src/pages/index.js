@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
@@ -15,6 +16,18 @@ import * as classes from '@/components/layout/layout.module.scss';
 const Home = ({ posts, locale, intl }) => {
     const { pageNsfw, toggleNsfw, showNsfwPopup, setShowNsfwPopup, setNsfw, setToggle } = useCenzorship();
     const { renderVideo, setRenderVideo } = useVideo();
+    const [isMounted, setIsMounted] = useState(false);
+    
+    useEffect(() => {
+        // Mark component as mounted
+        setIsMounted(true);
+        
+        const timer = setTimeout(() => {
+            setRenderVideo(true);
+        }, 1000);
+        
+        return () => clearTimeout(timer);
+    }, [setRenderVideo]);
 
     return (
         <>
@@ -24,6 +37,7 @@ const Home = ({ posts, locale, intl }) => {
                     as="image"
                     href={config.videoThumb}
                     type="image/webp"
+                    fetchPriority="high"
                 />
             </Head>
             <MainSchema isHome
@@ -71,9 +85,10 @@ const Home = ({ posts, locale, intl }) => {
                                 muted
                                 playsInline
                                 id="background-video"
+                                fetchPriority="high"
                                 poster={config.videoThumb}
                             >
-                                {renderVideo && config.videoFormats.map(format => {
+                                {isMounted && renderVideo && config.videoFormats.map(format => {
                                     return (
                                         <source src={`/${config.videoFileName}.${format}`}
                                             type={`video/${format}`}
@@ -84,7 +99,7 @@ const Home = ({ posts, locale, intl }) => {
                             </video>
                         </LazyLoadComponent>
                     </div>
-                    {!renderVideo && (
+                    {isMounted && !renderVideo && (
                         <button className={classes.videoTrigger}
                             onClick={() => setRenderVideo(true)}>
                             <span className="visually-hidden">

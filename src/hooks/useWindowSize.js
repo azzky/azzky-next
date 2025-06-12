@@ -1,15 +1,35 @@
 import { useState, useEffect, useCallback } from 'react';
 
 function useWidth() {
-    const [width, setWidth] = useState(null);
-    const [isVertical, setIsVertical] = useState(false);
+    const [width, setWidth] = useState(() => {
+        // Try to get stored value on initial render
+        if (typeof window !== 'undefined') {
+            const storedWidth = localStorage.getItem('window-width');
+            return storedWidth ? parseInt(storedWidth, 10) : null;
+        }
+        return null;
+    });
+    
+    const [isVertical, setIsVertical] = useState(() => {
+        // Try to get stored value on initial render
+        if (typeof window !== 'undefined') {
+            const storedIsVertical = localStorage.getItem('window-is-vertical');
+            return storedIsVertical === 'true';
+        }
+        return false;
+    });
 
     const updateWidth = useCallback(() => {
         if (typeof window !== 'undefined') {
             const windowWidth = window.innerWidth;
             const height = window.innerHeight;
+            
             setWidth(windowWidth);
-            setIsVertical(height > windowWidth);
+            localStorage.setItem('window-width', windowWidth.toString());
+            
+            const vertical = height > windowWidth;
+            setIsVertical(vertical);
+            localStorage.setItem('window-is-vertical', vertical.toString());
         }
     }, []);
 

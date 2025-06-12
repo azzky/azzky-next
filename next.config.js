@@ -2,7 +2,7 @@
 const withPWA = require('next-pwa')({
     dest: 'public',
     // disable: process.env.NODE_ENV === 'development',
-    register: false,
+    // register: false,
     // scope: '/app',
     // sw: 'service-worker.js',
     //...
@@ -26,10 +26,6 @@ const nextConfig = {
         defaultLocale: 'en',
         localeDetection: false,
     },
-    pwa: {
-        dest: 'public',
-    
-    }
 };
 
 module.exports = withPWA(nextConfig);
