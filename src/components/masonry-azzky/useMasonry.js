@@ -108,6 +108,7 @@ const useMasonry = ({
 
     return {
         settings,
+        usePopup,
         handleFilterChange,
         uniqueArr,
         activeFilterName,
