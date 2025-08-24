@@ -1,6 +1,5 @@
-import { useState, useReducer, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
-import { lightBoxReducer } from './reducers';
 import config from './config';
 
 import useWidth from '@/hooks/useWindowSize';
@@ -13,7 +12,7 @@ const useMasonry = ({
     $isPost,
     classes,
     images,
-    useLightBox
+    usePopup
 }) => {
     const allImages = images;
     // start masonry logic here
@@ -93,13 +92,8 @@ const useMasonry = ({
     }
     // end filtering logic here
 
-    const [lightBoxVal, lightBoxDispatch] = useReducer(lightBoxReducer, {
-        photoIndex: 0,
-        isOpen: false,
-    });
-
     const settings = {
-        hover, useLightBox, lightBoxDispatch, useLinks, columnNumber
+        hover, useLinks, columnNumber
     };
 
     let root = {};
@@ -114,9 +108,7 @@ const useMasonry = ({
 
     return {
         settings,
-        lightBoxVal,
         handleFilterChange,
-        lightBoxDispatch,
         uniqueArr,
         activeFilterName,
         imgSubArray,

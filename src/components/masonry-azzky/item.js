@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Item } from 'react-photoswipe-gallery';
 
 import config from './config';
 import { SfwOrNsfwImage } from './image';
@@ -6,8 +7,6 @@ import * as classes from './item.module.scss';
 
 export const GalleryItem = ({
     img,
-    imgIndex,
-    index,
     settings,
     metaDescription,
     pageNsfw
@@ -44,23 +43,29 @@ export const GalleryItem = ({
                     className="visually-hidden">
                     {metaDescription || `${img.title} ${config.galleryImageMiddleText} ${img.number}`}
                 </figcaption>
-                <SfwOrNsfwImage img={img}
-                    pageNsfw={pageNsfw}/>
-                <button className={classes.opener}
-                    title={!img.nsfw || pageNsfw ? null : config.nsfwText}
-                    onClick={() =>
-                        settings.useLightBox &&
-                        settings.lightBoxDispatch({
-                            type: 'photoIndex_Open',
-                            photoIndex:
-                                imgIndex === 0
-                                    ? index
-                                    : index + imgIndex * settings.columnNumber,
-                        })}>
-                    <span className="visually-hidden">
-                        {config.imageOpenText}
-                    </span>
-                </button>
+                <Item
+                    original={img.full}
+                    thumbnail={img.data.url + '?w=400&h=400&q=95&fm=webp'}
+                    width={img.data.details.image.width}
+                    height={img.data.details.image.height}
+                >
+                    {({ ref, open }) => (
+                        <>
+                            <SfwOrNsfwImage img={img}
+                                pageNsfw={pageNsfw}
+                            />
+                            <button className={classes.opener}
+                                ref={ref}
+                                title={!img.nsfw || pageNsfw ? null : config.nsfwText}
+                                onClick={open}>
+                                <span className="visually-hidden">
+                                    {config.imageOpenText}
+                                </span>
+                            </button>
+                        </>
+                    )}
+                </Item>
+                
             </figure>
         )
     );

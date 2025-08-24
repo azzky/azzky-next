@@ -17,7 +17,7 @@ const PostGallery = (props) => {
         nsfwArr = nsfwArr.map((i) => parseInt(i));
     }
     const images = [];
-    gallery.map((item, i) => (
+    gallery.map((item, i) => (        
         images.push({
             nsfw: nsfwArr.includes(i + 1),
             data: item.fields.file,
@@ -30,7 +30,7 @@ const PostGallery = (props) => {
     return (
         <ResponsiveGallery pageNsfw={pageNsfw}
             images={images}
-            useLightBox
+            usePopup
             hover={false}
             $isPost
             metaDescription={metaDescription}
@@ -70,7 +70,7 @@ const PostsGallery = (props) => {
     return (
         <ResponsiveGallery pageNsfw={pageNsfw}
             images={images}
-            useLightBox={false}
+            usePopup={false}
             useLinks
             filters
             lang={lang}

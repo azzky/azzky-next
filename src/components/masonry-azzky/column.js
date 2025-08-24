@@ -13,8 +13,6 @@ export const GalleryColumn = ({
         {column.map((img, imgIndex) => (
             <GalleryItem
                 img={img}
-                imgIndex={imgIndex}
-                index={index}
                 metaDescription={metaDescription}
                 settings={settings}
                 key={imgIndex}

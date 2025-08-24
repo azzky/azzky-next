@@ -1,15 +1,15 @@
 import { array, bool, string } from 'prop-types';
+import { Gallery } from 'react-photoswipe-gallery';
 
-import ImagesLightBox from '../gallery/lightbox';
 import Filters from './filters';
 import useMasonry from './useMasonry';
 import { GalleryColumn } from './column';
-import 'react-image-lightbox/style.css';
+import 'photoswipe/style.css';
 import * as classes from './gallery.module.scss';
 
 const ResponsiveGallery = ({
     images,
-    useLightBox,
+    usePopup,
     useLinks,
     hover,
     filters,
@@ -21,9 +21,7 @@ const ResponsiveGallery = ({
 }) => {
     const {
         settings,
-        lightBoxVal,
         handleFilterChange,
-        lightBoxDispatch,
         uniqueArr,
         activeFilterName,
         imgSubArray,
@@ -35,18 +33,10 @@ const ResponsiveGallery = ({
         filter,
         $isPost,
         images,
-        useLightBox
+        usePopup
     });
     return (
         <>
-            {useLightBox && lightBoxVal.isOpen && (
-                <ImagesLightBox
-                    imagesLightbox={images}
-                    photoIndex={lightBoxVal.photoIndex}
-                    lightBoxDispatch={lightBoxDispatch}
-                    pageNsfw={pageNsfw}
-                />
-            )}
             {!$isPost && (
                 <Filters uniqueArr={uniqueArr}
                     handleFilterChange={handleFilterChange}
@@ -56,15 +46,16 @@ const ResponsiveGallery = ({
             <section
                 className={$isPost ? classes.postRoot : classes.root}
             >
-                {getWidth && imgSubArray.map((column, index) => (
-                    <GalleryColumn
-                        column={column}
-                        index={index}
-                        settings={settings}
-                        key={index}
-                        metaDescription={metaDescription}
-                        pageNsfw={pageNsfw}/>
-                ))}
+                <Gallery>
+                    {getWidth && imgSubArray.map((column, index) => (
+                        <GalleryColumn
+                            column={column}
+                            settings={settings}
+                            key={index}
+                            metaDescription={metaDescription}
+                            pageNsfw={pageNsfw}/>
+                    ))}
+                </Gallery>
             </section>
         </>
     );
@@ -74,7 +65,7 @@ export default ResponsiveGallery;
 
 ResponsiveGallery.propTypes = {
     images: array,
-    useLightBox: bool,
+    usePopup: bool,
     useLinks: bool,
     hover: bool,
     filters: bool,
