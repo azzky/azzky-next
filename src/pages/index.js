@@ -69,7 +69,7 @@ const Home = ({ posts, locale, intl }) => {
                             <p>
                                 <FormattedMessage id="homepage.description"
                                     values={{ link: (
-                                        <Link href="/contact">
+                                        <Link href="/contact" key="cta">
                                             <FormattedMessage id="homepage.ctaButton"/>
                                         </Link>
                                     ) }}

@@ -36,21 +36,6 @@
 
 .buttonActive {
     composes: button;
-
-    & span {
-        &:first-child {
-            transform: rotate(45deg) translate(9px, -9px);
-            block-size: 100%;
-        }
-
-        &:nth-child(2) {
-            opacity: 0;
-        }
-
-        &:last-child {
-            transform: rotate(-45deg) translate(-9px, -9px);
-        }
-    }
 }
 
 .menu {
@@ -70,6 +55,10 @@
     }
 }
 
+.menuActive {
+    composes: menu;
+}
+
 @media screen and (max-width: $screen__m) {
     .menu {
         & li {
@@ -85,6 +74,23 @@
 }
 
 @media screen and (min-width: $screen__m) {
+    .buttonActive {
+        & span {
+            &:first-child {
+                transform: rotate(45deg) translate(9px, -9px);
+                block-size: 100%;
+            }
+
+            &:nth-child(2) {
+                opacity: 0;
+            }
+
+            &:last-child {
+                transform: rotate(-45deg) translate(-9px, -9px);
+            }
+        }
+    }
+
     .root {
         inline-size: 35px;
         block-size: 40px;
@@ -147,7 +153,6 @@
     }
 
     .menuActive {
-        composes: menu;
         background-color: var(--color-white);
         opacity: 1;
         z-index: 3;
