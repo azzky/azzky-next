@@ -8,8 +8,7 @@ export const GalleryColumn = ({
     metaDescription,
     pageNsfw
 }) => (
-    <div key={index}
-        className={classes.root}>
+    <div className={classes.root}>
         {column.map((img, imgIndex) => (
             <GalleryItem
                 img={img}

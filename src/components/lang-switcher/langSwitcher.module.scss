@@ -2,10 +2,43 @@
 
 .root {
     display: grid;
-    justify-content: center; 
+    justify-content: center;
+}
+
+.mobileRow {
+    display: none;
+}
+
+.mobileItem {
+    display: inline-flex;
+    align-items: center;
+}
+
+.delimiter {
+    margin: 0 4px;
+    opacity: 0.5;
 }
 
 .button {
     text-transform: uppercase;
     font-size: 24px;
+}
+
+.buttonActive {
+    text-transform: uppercase;
+    font-size: 24px;
+    text-decoration: underline;
+}
+
+@media screen and (max-width: #{$screen__m - 1px}) {
+    .root {
+        display: none;
+    }
+
+    .mobileRow {
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        justify-content: center;
+    }
 }

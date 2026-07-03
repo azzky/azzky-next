@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import { FormattedMessage } from 'react-intl';
+import Head from 'next/head';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import { client } from '@/lib/contentful';
 import useCenzorship from '@/hooks/useCenzorship';
@@ -9,6 +10,7 @@ import useWidth from '@/hooks/useWindowSize';
 import * as classes from '@/components/layout/layout.module.scss';
 
 const Model = ({ posts, locale, tag }) => {
+    const intl = useIntl();
     const { pageNsfw, toggleNsfw, showNsfwPopup, setShowNsfwPopup, setNsfw, setToggle } = useCenzorship();
     const { isVertical } = useWidth();
 
@@ -28,33 +30,41 @@ const Model = ({ posts, locale, tag }) => {
     };
 
     return (
-        <Layout hero
-            dark
-            pageNsfw={pageNsfw}
-            showNsfwPopup={showNsfwPopup}
-            setShowNsfwPopup={setShowNsfwPopup}
-            setNsfw={setNsfw}
-            setToggle={setToggle}
-            toggleNsfw={toggleNsfw}
-        >
-            <section className={wrapperClass}>
-                <div className={classes.heroContent}>
-                    <h1 className={classes.heroTitle}>
-                        <FormattedMessage id="tag.title"
-                            values={{ tag: tag }}/>
-                    </h1>
-                </div>
-                <Image src={wallpaperImg.file.url}
-                    alt={posts[0].fields.title}
-                    className="heroImage"
-                    {...heroImageProps}
-                />
-            </section>
-            <PostsGallery pageNsfw={pageNsfw}
-                edges={posts}
-                lang={locale}
-                $isPost/>
-        </Layout>
+        <>
+            <Head>
+                <title>{intl.formatMessage({ id: 'tag.seoTitle' }, { tag })}</title>
+                <meta name="description" content={intl.formatMessage({ id: 'tag.seoDescription' }, { tag })}/>
+                <meta property="og:title" content={intl.formatMessage({ id: 'tag.seoTitle' }, { tag })}/>
+                <meta property="og:description" content={intl.formatMessage({ id: 'tag.seoDescription' }, { tag })}/>
+            </Head>
+            <Layout hero
+                dark
+                pageNsfw={pageNsfw}
+                showNsfwPopup={showNsfwPopup}
+                setShowNsfwPopup={setShowNsfwPopup}
+                setNsfw={setNsfw}
+                setToggle={setToggle}
+                toggleNsfw={toggleNsfw}
+            >
+                <section className={wrapperClass}>
+                    <div className={classes.heroContent}>
+                        <h1 className={classes.heroTitle}>
+                            <FormattedMessage id="tag.title"
+                                values={{ tag: tag }}/>
+                        </h1>
+                    </div>
+                    <Image src={wallpaperImg.file.url}
+                        alt={posts[0].fields.title}
+                        className="heroImage"
+                        {...heroImageProps}
+                    />
+                </section>
+                <PostsGallery pageNsfw={pageNsfw}
+                    edges={posts}
+                    lang={locale}
+                    $isPost/>
+            </Layout>
+        </>
     );
 };
 

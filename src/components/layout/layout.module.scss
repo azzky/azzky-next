@@ -12,23 +12,6 @@
     padding-block-start: 0;
 }
 
-.mainHero :global .heroWrapper {
-    // position: relative;
-    // inline-size: 100%;
-    // block-size: 100dvh;
-    // z-index: 1;
-    // top: 0;
-    // left: 0;
-    // overflow: hidden;
-
-    // &::before {
-    //     content: '';
-    //     display: block;
-    //     block-size: 100%;
-    //     background-color: rgba(0,0,0,0.2);
-    // }
-}
-
 .heroWrapper {
     position: relative;
     inline-size: 100%;
@@ -68,15 +51,6 @@
     &::after {
         background-image: url(/holder-small_tr.png);
     }
-}
-
-.heroWrapper :global .heroImage {
-    z-index: -2;
-    position: absolute !important;
-    top: 0;
-    inline-size: 100%;
-    block-size: 100%;
-    object-fit: cover;
 }
 
 .heroNsfwImage {

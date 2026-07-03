@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { FormattedMessage } from 'react-intl';
+import Head from 'next/head';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { number, shape, string } from 'prop-types';
 
 import Layout from '@/components/layout/layout';
@@ -10,10 +11,18 @@ import * as tagsClasses from '@/styles/tags.module.scss';
 
 const MuahsPage = ({
     muahs
-}) => (
+}) => {
+    const intl = useIntl();
+    return (
     <Layout hero
         isFooterAbsolute
         pageNsfw={false}>
+        <Head>
+            <title>{intl.formatMessage({ id: 'muahs.seoTitle' })}</title>
+            <meta name="description" content={intl.formatMessage({ id: 'muahs.seoDescription' })}/>
+            <meta property="og:title" content={intl.formatMessage({ id: 'muahs.seoTitle' })}/>
+            <meta property="og:description" content={intl.formatMessage({ id: 'muahs.seoDescription' })}/>
+        </Head>
         <section className={classes.heroWrapper}>
             <div className={classes.heroContent}>
                 <div>
@@ -42,7 +51,8 @@ const MuahsPage = ({
                 className="heroImage"/>
         </section>
     </Layout>
-);
+    );
+};
 
 export default MuahsPage;
 

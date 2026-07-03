@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import { FormattedMessage } from 'react-intl';
+import Head from 'next/head';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import { client } from '@/lib/contentful';
 import useCenzorship from '@/hooks/useCenzorship';
@@ -10,11 +11,13 @@ import SocialLink from '@/components/socialIcon/socialIcon';
 import * as classes from '@/components/layout/layout.module.scss';
 
 const Model = ({ posts, locale, slug, link }) => {
+    const intl = useIntl();
     const { pageNsfw, toggleNsfw, showNsfwPopup, setShowNsfwPopup, setNsfw, setToggle } = useCenzorship();
     const { isVertical } = useWidth();
 
     if (!posts?.length > 0) return null;
 
+    const modelName = slug.replaceAll('_', ' ');
     const wallpaperImg = posts[0].fields.wallpaper || posts[0].fields.mobileWallpaper ? 
         isVertical ? posts[0].fields.mobileWallpaper.fields : posts[0].fields.wallpaper.fields :
         posts[0].fields.preview.fields;
@@ -31,6 +34,12 @@ const Model = ({ posts, locale, slug, link }) => {
 
     return (
         <>
+            <Head>
+                <title>{intl.formatMessage({ id: 'model.seoTitle' }, { model: modelName })}</title>
+                <meta name="description" content={intl.formatMessage({ id: 'model.seoDescription' }, { model: modelName })}/>
+                <meta property="og:title" content={intl.formatMessage({ id: 'model.seoTitle' }, { model: modelName })}/>
+                <meta property="og:description" content={intl.formatMessage({ id: 'model.seoDescription' }, { model: modelName })}/>
+            </Head>
             <Layout hero
                 dark
                 pageNsfw={pageNsfw}
@@ -43,7 +52,7 @@ const Model = ({ posts, locale, slug, link }) => {
                     <div className={classes.heroContent}>
                         <h1 className={classes.heroTitle}>
                             <FormattedMessage id="model.title"
-                                values={{ model: slug.replaceAll('_', ' ') }}/>
+                                values={{ model: modelName }}/>
                             {link && <SocialLink link={link}/>}
                         </h1>
                     </div>

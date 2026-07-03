@@ -1,15 +1,16 @@
 /** @type {import('next').NextConfig} */
-const withPWA = require('next-pwa')({
-    dest: 'public',
-    // disable: process.env.NODE_ENV === 'development',
-    // register: false,
-    // scope: '/app',
-    // sw: 'service-worker.js',
-    //...
-});
+    const withPWA = require('next-pwa')({
+        dest: 'public',
+        // disable: process.env.NODE_ENV === 'development',
+        // register: false,
+        // scope: '/app',
+        // sw: 'service-worker.js',
+        //...
+    });
 
 const nextConfig = {
     reactStrictMode: true,
+    poweredByHeader: false,
     images: {
         remotePatterns: [
             {
@@ -22,7 +23,7 @@ const nextConfig = {
         deviceSizes: [400, 800, 1280, 1920, 2048, 3840]
     },
     i18n: {
-        locales: ['en', 'ru'],
+        locales: ['en', 'ru', 'sr'],
         defaultLocale: 'en',
         localeDetection: false,
     },

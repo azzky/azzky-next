@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { FormattedMessage } from 'react-intl';
+import Head from 'next/head';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { number, shape, string } from 'prop-types';
 
 import Layout from '@/components/layout/layout';
@@ -10,10 +11,18 @@ import * as tagsClasses from '@/styles/tags.module.scss';
 
 const PhotographersPage = ({
     photographers
-}) => (
+}) => {
+    const intl = useIntl();
+    return (
     <Layout hero
         isFooterAbsolute
         pageNsfw={false}>
+        <Head>
+            <title>{intl.formatMessage({ id: 'photographers.seoTitle' })}</title>
+            <meta name="description" content={intl.formatMessage({ id: 'photographers.seoDescription' })}/>
+            <meta property="og:title" content={intl.formatMessage({ id: 'photographers.seoTitle' })}/>
+            <meta property="og:description" content={intl.formatMessage({ id: 'photographers.seoDescription' })}/>
+        </Head>
         <section className={classes.heroWrapper}>
             <div className={classes.heroContent}>
                 <div>
@@ -40,7 +49,8 @@ const PhotographersPage = ({
                 className="heroImage"/>
         </section>
     </Layout>
-);
+    );
+};
 
 export default PhotographersPage;
 

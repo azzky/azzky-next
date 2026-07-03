@@ -15,7 +15,11 @@ const MainSchema = ({
     intl
 }) => {
     const router = useRouter();
-    const href = Maindata.url + router.asPath;
+    const localePath = locale && locale !== 'en' ? `/${locale}` : '';
+    const href = Maindata.url + localePath + router.asPath;
+    const hrefEn = Maindata.url + router.asPath;
+    const hrefRu = Maindata.url + '/ru' + router.asPath;
+    const hrefSr = Maindata.url + '/sr' + router.asPath;
     const title = data.title;
     const orgTitle = intl.formatMessage({ id: 'homepage.seoTitle' });
     const orgDescription = intl.formatMessage({ id: 'homepage.seoDescription' });
@@ -30,7 +34,9 @@ const MainSchema = ({
     const schemaAuthorAzzkyId = Maindata.url + '/#/schema/author/azzky';
     const schemaAuthorPhotographerId = data.photographer?.fields?.name ? Maindata.url + '/#/schema/author/' + data.photographer.fields.name.replaceAll(' ', '') : null;
     const isAzzkyPhotographer = data.photographer?.fields?.name === Maindata.author;
-    const schemaTags = 'shibari, rope bondage' + (data?.taglist?.includes('suspension') ? ', shibari suspension' : '');
+    const baseKeywords = ['shibari', 'rope bondage'];
+    const postKeywords = data?.taglist?.length ? data.taglist : [];
+    const schemaTags = [...new Set([...baseKeywords, ...postKeywords])].join(', ');
 
     const schemaSkeleton = {
         '@context': 'https://schema.org',
@@ -204,7 +210,7 @@ const MainSchema = ({
         'publisher': {
             '@id': schemaOrganisationId
         },
-        'RelatedLink': Maindata.url,
+        'relatedLink': Maindata.url,
         'significantLinks': data.significantLinks
     } : null;
 
@@ -214,7 +220,7 @@ const MainSchema = ({
 
     if (isHome) {
         schemaItems.push(schemaVideo);
-        schemaCollection.mainEntity.itemListElement.push(schemaArticles);
+        schemaCollection.mainEntity.itemListElement.push(...schemaArticles);
         schemaItems.push(schemaCollection);
     }
     if (!isHome) {
@@ -241,52 +247,45 @@ const MainSchema = ({
     return (
         <Head>
             <title>{title}</title>
-            <meta name="og:title"
-                property="og:title"
+            <link rel="canonical" href={href}/>
+            <link rel="alternate" hrefLang="en" href={hrefEn}/>
+            <link rel="alternate" hrefLang="ru" href={hrefRu}/>
+            <link rel="alternate" hrefLang="sr" href={hrefSr}/>
+            <link rel="alternate" hrefLang="x-default" href={hrefEn}/>
+            <meta name="description"
+                content={description}/>
+            <meta property="og:title"
                 content={title}/>
-            <meta name="og:url"
-                property="og:url"
+            <meta property="og:url"
                 content={url}/>
-            <meta name="ia:markup_url"
-                property="ia:markup_url"
-                content={url}/>
-            <meta name="ia:rules_url"
-                property="ia:rules_url"
-                content={url}/>
+            <meta property="og:type"
+                content={isPost ? 'article' : 'website'}/>
+            <meta property="og:description"
+                content={description}/>
+            <meta property="og:image"
+                content={thumbnail}/>
+            <meta property="og:image:width"
+                content="1024"/>
+            <meta property="og:image:height"
+                content="1024"/>
             {isPost && (
-                <meta name="og:image:alt"
-                    property="og:image:alt"
+                <meta property="og:image:alt"
                     content={schemaThumbAlt}/>
             )}
-            <meta name="twitter:title"
-                property="twitter:title"
-                content={title}/>
-            <meta property="og:type"
-                content="website"></meta>
-            <meta name="description"
-                property="description"
-                content={description}/>
-            <meta name="og:description"
-                property="og:description"
-                content={description}/>
-            <meta name="twitter:description"
-                property="twitter:description"
-                content={description}/>
-            <meta name="og:image"
-                property="og:image"
-                content={thumbnail}/>
-            <meta name="twitter:image"
-                property="twitter:image"
-                content={thumbnail}/>
-            <meta name="vk:image"
-                property="vk:image"
-                content={thumbnail}/>
-            <meta name="fb:app_id"
-                property="fb:app_id"
-                content="966242223397117"/>
             <meta name="twitter:card"
-                property="twitter:card"
                 content="summary_large_image"/>
+            <meta name="twitter:site"
+                content="@AzzkyDemiurg"/>
+            <meta name="twitter:title"
+                content={title}/>
+            <meta name="twitter:description"
+                content={description}/>
+            <meta name="twitter:image"
+                content={thumbnail}/>
+            <meta property="vk:image"
+                content={thumbnail}/>
+            <meta property="fb:app_id"
+                content="966242223397117"/>
             <script type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaSkeleton) }}/>
         </Head>

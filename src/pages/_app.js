@@ -4,12 +4,14 @@ import Head from 'next/head';
 
 import en from '../lang/en.json';
 import ru from '../lang/ru.json';
+import sr from '../lang/sr.json';
 
 import '../styles/global.scss';
 
 const messages = {
     ru,
-    en
+    en,
+    sr
 };
 
 export default function App({ Component, pageProps }) {

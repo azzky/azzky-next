@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { FormattedMessage } from 'react-intl';
+import Head from 'next/head';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { number, shape, string } from 'prop-types';
 
 import Layout from '@/components/layout/layout';
@@ -8,10 +9,18 @@ import { client } from '@/lib/contentful';
 import * as classes from '@/components/layout/layout.module.scss';
 import * as tagsClasses from '@/styles/tags.module.scss';
 
-const TagsPage = ({ tags }) => (
+const TagsPage = ({ tags }) => {
+    const intl = useIntl();
+    return (
     <Layout hero
         isFooterAbsolute
         pageNsfw={false}>
+        <Head>
+            <title>{intl.formatMessage({ id: 'tags.seoTitle' })}</title>
+            <meta name="description" content={intl.formatMessage({ id: 'tags.seoDescription' })}/>
+            <meta property="og:title" content={intl.formatMessage({ id: 'tags.seoTitle' })}/>
+            <meta property="og:description" content={intl.formatMessage({ id: 'tags.seoDescription' })}/>
+        </Head>
         <section className={classes.heroWrapper}>
             <div className={classes.heroContent}>
                 <div>
@@ -42,7 +51,8 @@ const TagsPage = ({ tags }) => (
                 className="heroImage"/>
         </section>
     </Layout>
-);
+    );
+};
 
 export default TagsPage;
 
