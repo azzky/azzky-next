@@ -131,13 +131,13 @@ const Team = (props) => {
                     </>
                 )}
             </div>
-            {props.location.fields.name && (
+            {props?.location?.fields?.name && (
             <div className={classes.location}>
                 <svg width="24" height="24"><use href="#marker"></use></svg>
                 <p className="visually-hidden">
                     <FormattedMessage id="team.location"/>
                 </p>
-                {props.location.fields.name}
+                {props?.location?.fields?.name}
             </div>
             )}
         </div>
