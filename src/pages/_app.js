@@ -14,6 +14,15 @@ const messages = {
     sr
 };
 
+export function reportWebVitals(metric) {
+    if (process.env.NODE_ENV !== 'production') {
+        console.log(metric);
+    }
+    // Forward metrics to your analytics endpoint here, e.g.:
+    // const body = JSON.stringify(metric);
+    // navigator.sendBeacon('/api/vitals', body);
+}
+
 export default function App({ Component, pageProps }) {
     const { locale } = useRouter();
     return (

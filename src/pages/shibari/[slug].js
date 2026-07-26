@@ -98,7 +98,6 @@ const Post = ({ post, locale, createdAt, prev, next }) => {
             Maindata.url + '/shibari' + next.link, Maindata.url + '/shibari' + prev.link
         ]
     };
-    console.log(post);
 
     return (
         <>

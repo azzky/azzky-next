@@ -1,4 +1,5 @@
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/next';
 import { array, bool, func, object, oneOfType } from 'prop-types';
 
 import Sprite from '../svg-sprite';
@@ -25,6 +26,7 @@ const Layout = ({ hero: isHero, pageNsfw, toggleNsfw, showNsfwPopup, setShowNsfw
         </main>
         <Footer $isFooterAbsolute={isFooterAbsolute}/>
         <SpeedInsights/>
+        <Analytics/>
         <NsfwPopup showNsfwPopup={showNsfwPopup}
             setNsfw={setNsfw}
             setShowNsfwPopup={setShowNsfwPopup}
