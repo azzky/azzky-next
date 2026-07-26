@@ -14,7 +14,7 @@ const Footer = (props) => {
             <p>
                 <FormattedMessage id="footer.copyright" values={{ date }}/>
             </p>
-            <div>
+            {/* <div>
                 <p className={classes.designer}>
                     <FormattedMessage id="footer.designerText"/>
                     <a href={config.designerLink}
@@ -24,7 +24,7 @@ const Footer = (props) => {
                         {config.designerName}
                     </a>
                 </p>
-            </div>
+            </div> */}
         </footer>
     );
 };

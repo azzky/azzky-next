@@ -1,0 +1,57 @@
+@import '@/styles/constants.scss';
+
+.root {
+    display: grid;
+    gap: 24px;
+    padding: 48px 15px;
+    max-inline-size: 1280px;
+    margin-inline: auto;
+}
+
+.imageWrapper {
+    position: relative;
+    inline-size: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+}
+
+.image {
+    object-fit: cover;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.title {
+    font-weight: 900;
+    font-size: var(--font-size-45);
+    text-align: start;
+    margin-block-end: 0;
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cta {
+    align-self: start;
+    text-decoration: underline;
+}
+
+@media screen and (min-width: $screen__m) {
+    .root {
+        grid-template-columns: 45% 1fr;
+        align-items: center;
+        gap: 48px;
+        padding: 80px var(--hero-padding-desktop);
+    }
+
+    .content {
+        gap: 20px;
+    }
+}

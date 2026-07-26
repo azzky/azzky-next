@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import contentfulLoader from '@/components/contentfulImage';
 
 import { client } from '@/lib/contentful';
 import useCenzorship from '@/hooks/useCenzorship';
@@ -43,7 +44,8 @@ const Post = ({ post, locale, createdAt, prev, next }) => {
         nsfw,
         nsfwarr,
         gallery,
-        metadescription
+        metadescription,
+        location
     } = post;
 
     let readyData,
@@ -96,6 +98,7 @@ const Post = ({ post, locale, createdAt, prev, next }) => {
             Maindata.url + '/shibari' + next.link, Maindata.url + '/shibari' + prev.link
         ]
     };
+    console.log(post);
 
     return (
         <>
@@ -126,12 +129,14 @@ const Post = ({ post, locale, createdAt, prev, next }) => {
                             nawashi={nawashi}
                             photographer={photographer?.fields}
                             muah={muah?.fields}
+                            location={location}
                             lang={locale}/>
                         <Share preview={preview?.file?.url}
                             title={title + ' shibari by Azzky'}
                             lang={locale}/>
                     </div>
                     <Image src={wallpaperImg.file.url}
+                        loader={contentfulLoader}
                         alt={title}
                         className="heroImage"
                         {...heroImageProps}

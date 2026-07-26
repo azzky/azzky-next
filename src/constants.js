@@ -43,6 +43,10 @@ export const menuItems = [
         link: ''
     },
     {
+        name: 'menu.works',
+        link: 'shibari'
+    },
+    {
         name: 'menu.tags',
         link: 'tags'
     },

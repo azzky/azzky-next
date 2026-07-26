@@ -1,0 +1,58 @@
+@import '@/styles/constants.scss';
+
+.root {
+    padding: 48px 15px;
+    max-inline-size: 1280px;
+    margin-inline: auto;
+    text-align: center;
+}
+
+.title {
+    font-weight: 900;
+    font-size: var(--font-size-45);
+    margin-block-end: 32px;
+}
+
+.grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 0;
+    margin: 0 0 32px;
+}
+
+.item {
+    position: relative;
+    overflow: hidden;
+    // aspect-ratio: 1 / 1;
+}
+
+.link {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+}
+
+.image {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    transition: transform .4s ease-in-out;
+}
+
+.cta {
+    display: inline-block;
+    text-decoration: underline;
+}
+
+@media screen and (min-width: $screen__m) {
+    .root {
+        padding: 80px var(--hero-padding-desktop);
+    }
+
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+}

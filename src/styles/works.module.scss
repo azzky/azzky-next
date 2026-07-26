@@ -1,0 +1,24 @@
+@import '@/styles/constants.scss';
+
+.header {
+    padding: 20px 15px 0;
+    text-align: center;
+}
+
+.title {
+    font-weight: 900;
+    font-size: var(--font-size-45);
+    margin-block-end: 0.3em;
+}
+
+.description {
+    max-inline-size: 810px;
+    margin-inline: auto;
+    margin-block-end: 20px;
+}
+
+@media screen and (min-width: $screen__m) {
+    .header {
+        padding-block-start: 40px;
+    }
+}

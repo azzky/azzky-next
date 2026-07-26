@@ -4,6 +4,7 @@ import removeSpaces from '@/utils/removeSpaces';
 
 const staticPages = [
     { path: '', priority: '1.0', changefreq: 'daily' },
+    { path: '/shibari', priority: '0.9', changefreq: 'daily' },
     { path: '/tags', priority: '0.6', changefreq: 'weekly' },
     { path: '/models', priority: '0.6', changefreq: 'weekly' },
     { path: '/photographers', priority: '0.6', changefreq: 'weekly' },

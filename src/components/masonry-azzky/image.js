@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { bool } from 'prop-types';
+import contentfulLoader from '@/components/contentfulImage';
 
 export const SfwOrNsfwImage = ({
     img: {
@@ -21,7 +22,7 @@ export const SfwOrNsfwImage = ({
         quality: 95
     };
     return (
-        <Image {...props} alt={title}/>
+        <Image {...props} loader={contentfulLoader} alt={title}/>
     );
 };
 

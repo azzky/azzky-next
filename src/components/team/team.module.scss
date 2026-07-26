@@ -15,6 +15,13 @@
     }
 }
 
+.location {
+    & svg {
+        margin-left: 0;
+        translate: 0 0;
+    }
+}
+
 @media screen and (max-width: $screen__m) {
     .root {
         margin-block-start: 20px;
@@ -24,5 +31,13 @@
     .root {
         bottom: 80px;
         @include hero-element;
+        right: var(--hero-padding-desktop);
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+
+    .location {
+        translate: 0 50px;
     }
 }

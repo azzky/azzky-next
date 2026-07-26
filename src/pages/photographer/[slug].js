@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Head from 'next/head';
 import { FormattedMessage, useIntl } from 'react-intl';
-
+import contentfulLoader from '@/components/contentfulImage';
 import { client } from '@/lib/contentful';
 import useCenzorship from '@/hooks/useCenzorship';
 import { Layout } from '@/components';
@@ -57,6 +57,7 @@ const Model = ({ posts, locale }) => {
                         </h1>
                     </div>
                     <Image src={wallpaperImg.file.url}
+                        loader={contentfulLoader}
                         alt={posts[0].fields.title}
                         className="heroImage"
                         {...heroImageProps}

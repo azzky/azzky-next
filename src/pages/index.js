@@ -5,15 +5,14 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Head from 'next/head';
 
 import { client } from '@/lib/contentful';
-import { Layout } from '@/components';
+import { Layout, About, Reviews, Favorites } from '@/components';
 import { useVideo } from '@/hooks/useVideo';
 import useCenzorship from '@/hooks/useCenzorship';
-import { PostsGallery } from '@/components';
 import config from '@/components/meta/config';
 import MainSchema from '@/components/meta/meta';
 import * as classes from '@/components/layout/layout.module.scss';
 
-const Home = ({ posts, locale, intl }) => {
+const Home = ({ posts, favorites, reviews, locale, intl }) => {
     const { pageNsfw, toggleNsfw, showNsfwPopup, setShowNsfwPopup, setNsfw, setToggle } = useCenzorship();
     const { renderVideo, setRenderVideo } = useVideo();
     const [isMounted, setIsMounted] = useState(false);
@@ -111,10 +110,12 @@ const Home = ({ posts, locale, intl }) => {
                         </button>
                     )}
                 </section>
-                <PostsGallery pageNsfw={pageNsfw}
-                    edges={posts}
+                <About/>
+                <Reviews reviews={reviews}
+                    locale={locale}/>
+                <Favorites posts={favorites}
                     lang={locale}
-                />
+                    pageNsfw={pageNsfw}/>
             </Layout>
         </>
     );
@@ -123,15 +124,37 @@ const Home = ({ posts, locale, intl }) => {
 export default injectIntl(Home);
 
 export const getStaticProps = async ({ locale }) => {
+    const contentfulLocale = locale === 'ru' ? 'ru' : 'en-US';
     const res = await client.getEntries({
         content_type: 'post',
         order: '-fields.date',
-        locale: locale === 'ru' ? 'ru' : 'en-US'
+        locale: contentfulLocale
     });
+
+    const posts = res.items;
+    const favorites = posts
+        .filter((post) => post.fields.showOnHomepage === true)
+        .slice(0, 6);
+
+    let reviews = [];
+    try {
+        const feedbackRes = await client.getEntries({
+            content_type: 'feedback',
+            order: '-fields.date',
+            // 'fields.isFeatured': true,
+            limit: 100,
+            locale: contentfulLocale
+        });
+        reviews = feedbackRes.items;
+    } catch {
+        reviews = [];
+    }
 
     return {
         props: {
-            posts: res.items,
+            posts,
+            favorites,
+            reviews,
             revalidate: 70,
             locale
         }
