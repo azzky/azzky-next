@@ -6,20 +6,29 @@ export const SfwOrNsfwImage = ({
     img: {
         nsfw,
         data: {
-            url
+            url,
+            details
         },
         title
     },
-    pageNsfw
+    pageNsfw,
+    priority
 }) => {
     const state = !nsfw || pageNsfw;
+    const baseWidth = state ? 400 : 15;
+    const real = details?.image;
+    const height = real?.width
+        ? Math.round(baseWidth * (real.height / real.width))
+        : baseWidth;
     const props = {
         itemProp: state ? 'contentUrl' : null,
         src: url,
-        width: state ? 400 : 15,
-        height: state ? 400 : 15,
+        width: baseWidth,
+        height,
         className: state ? null : 'nsfwImage',
-        quality: 95
+        quality: 95,
+        priority: priority ? true : undefined,
+        loading: priority ? 'eager' : undefined
     };
     return (
         <Image {...props} loader={contentfulLoader} alt={title}/>
@@ -27,5 +36,6 @@ export const SfwOrNsfwImage = ({
 };
 
 SfwOrNsfwImage.propTypes = {
-    pageNsfw: bool
+    pageNsfw: bool,
+    priority: bool
 };

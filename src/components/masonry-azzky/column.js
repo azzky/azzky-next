@@ -15,6 +15,7 @@ export const GalleryColumn = ({
                 metaDescription={metaDescription}
                 settings={settings}
                 key={imgIndex}
+                priority={imgIndex === 0}
                 pageNsfw={pageNsfw}/>
         ))}
     </div>

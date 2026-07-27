@@ -9,7 +9,8 @@ export const GalleryItem = ({
     img,
     settings,
     metaDescription,
-    pageNsfw
+    pageNsfw,
+    priority
 }) => {
     const isVertical = img.data.details.image.height > img.data.details.image.width;
     const className = img.nsfw && !pageNsfw ?
@@ -32,6 +33,7 @@ export const GalleryItem = ({
                     </Link>
                 </figcaption>
                 <SfwOrNsfwImage img={img}
+                    priority={priority}
                     pageNsfw={pageNsfw}/>
             </figure>
         ) : (
@@ -52,6 +54,7 @@ export const GalleryItem = ({
                     {({ ref, open }) => (
                         <>
                             <SfwOrNsfwImage img={img}
+                                priority={priority}
                                 pageNsfw={pageNsfw}
                             />
                             <button className={classes.opener}
