@@ -41,7 +41,7 @@
 }
 
 .rootActive {
-    composes: root;
+    @extend .root;
     text-align: end;
 
     &::before {

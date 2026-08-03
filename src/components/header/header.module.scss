@@ -20,7 +20,7 @@
 }
 
 .activeRoot {
-    composes: root;
+    @extend .root;
 }
 
 .mobileMenuItems {

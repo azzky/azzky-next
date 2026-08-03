@@ -8,7 +8,7 @@
 }
 
 .postRoot {
-    composes: root;
+    @extend .root;
     padding-block-start: var(--gap);
 }
 

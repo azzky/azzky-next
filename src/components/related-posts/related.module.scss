@@ -35,7 +35,7 @@ $breakpoint: $related__image-size * 2 + $related__gap;
 }
 
 .imageNsfwV {
-    composes: imageNsfw;
+    @extend .imageNsfw;
     &:before {
         background-image: url('/holder-small_tr.png');
     }

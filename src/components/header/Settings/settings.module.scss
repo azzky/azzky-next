@@ -22,11 +22,11 @@
 }
 
 .settingsLifted {
-    composes: settings;
+    @extend .settings;
 }
 
 .settingsActive {
-    composes: settingsLifted;
+    @extend .settingsLifted;
 
     opacity: 1;
     background-color: var(--color-white);
@@ -39,7 +39,7 @@
 }
 
 .triggerActive {
-    composes: trigger;
+    @extend .trigger;
     transform: rotate(180deg);
 }
 

@@ -13,7 +13,6 @@ const TagsPage = ({ tags }) => {
     const intl = useIntl();
     return (
     <Layout hero
-        isFooterAbsolute
         pageNsfw={false}>
         <Head>
             <title>{intl.formatMessage({ id: 'tags.seoTitle' })}</title>

@@ -35,7 +35,7 @@
 }
 
 .buttonActive {
-    composes: button;
+    @extend .button;
 }
 
 .menu {
@@ -56,13 +56,13 @@
 }
 
 .menuActive {
-    composes: menu;
+    @extend .menu;
 }
 
 @media screen and (max-width: $screen__m) {
     .menu {
         & li {
-            &:nth-child(-n+5) {
+            &:nth-child(-n+6) {
                 display: none;
             }
         }

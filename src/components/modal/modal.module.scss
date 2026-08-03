@@ -23,7 +23,7 @@
 }
 
 .rootActive {
-    composes: root;
+    @extend .root;
     opacity: 1;
     z-index: 2;
 }

@@ -5,7 +5,7 @@
 }
 
 .rootVisible {
-    composes: root;
+    @extend .root;
 }
 
 .button {

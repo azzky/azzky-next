@@ -15,7 +15,6 @@ const PhotographersPage = ({
     const intl = useIntl();
     return (
     <Layout hero
-        isFooterAbsolute
         pageNsfw={false}>
         <Head>
             <title>{intl.formatMessage({ id: 'photographers.seoTitle' })}</title>

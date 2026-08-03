@@ -7,7 +7,7 @@ $transition: transform .3s ease-in-out, box-shadow .2s ease-in-out;
 }
 
 .nsfw {
-    composes: root;
+    @extend .root;
 
     &::before {
         content: '';
@@ -24,7 +24,7 @@ $transition: transform .3s ease-in-out, box-shadow .2s ease-in-out;
 }
 
 .vertical {
-    composes: nsfw;
+    @extend .nsfw;
 
     &::before {
         background-image: url(/holder-small_tr.png);

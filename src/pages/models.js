@@ -15,7 +15,6 @@ const ModelsPage = ({
     const intl = useIntl();
     return (
     <Layout hero
-        isFooterAbsolute
         pageNsfw={false}>
         <Head>
             <title>{intl.formatMessage({ id: 'models.seoTitle' })}</title>

@@ -22,7 +22,7 @@
 }
 
 .rootBig {
-    composes: root;
+    @extend .root;
     justify-content: flex-start;
 
     & svg {

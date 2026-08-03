@@ -29,7 +29,7 @@
 }
 
 .primaryButton {
-    composes: button;
+    @extend .button;
 
     background: var(--color-black);
     color: var(--color-white);

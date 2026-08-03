@@ -8,7 +8,7 @@
 }
 
 .mainHero {
-    composes: main;
+    @extend .main;
     padding-block-start: 0;
 }
 
@@ -30,7 +30,7 @@
 }
 
 .heroWrapperNsfw {
-    composes: heroWrapper;
+    @extend .heroWrapper;
     &::after {
         content: '';
         background-image: url(/holder-big_tr.png);
@@ -47,7 +47,7 @@
 }
 
 .heroWrapperNsfwV {
-    composes: heroWrapperNsfw;
+    @extend .heroWrapperNsfw;
     &::after {
         background-image: url(/holder-small_tr.png);
     }
@@ -84,7 +84,7 @@
 }
 
 .heroContentPost {
-    composes: heroContent;
+    @extend .heroContent;
     grid-template-areas:
         'description'
         'team'
@@ -93,7 +93,7 @@
 }
 
 .heroContent404 {
-    composes: heroContent;
+    @extend .heroContent;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -101,7 +101,7 @@
 }
 
 .heroContentSuccess {
-    composes: heroContent404;
+    @extend .heroContent404;
 }
 
 .heroTitle {
@@ -109,14 +109,14 @@
 }
 
 .heroTitle404 {
-    composes: heroTitle;
+    @extend .heroTitle;
     font-weight: 900;
     font-size: var(--font-size-150);
     margin-block-end: 30px;
 }
 
 .heroTitleSuccess {
-    composes: heroTitle;
+    @extend .heroTitle;
 }
 
 .heroDescription {
@@ -133,11 +133,11 @@
 }
 
 .heroDescription404 {
-    composes: heroDescription;
+    @extend .heroDescription;
 }
 
 .heroDescriptionSuccess {
-    composes: heroDescription;
+    @extend .heroDescription;
     block-size: 100%;
     position: static;
 }

@@ -10,7 +10,7 @@
 }
 
 .absolute {
-    composes: root;
+    @extend .root;
     
     position: absolute;
     bottom: 0;
