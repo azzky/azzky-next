@@ -1,0 +1,9 @@
+name = "images-proxy"
+main = "workers/images-proxy.js"
+compatibility_date = "2025-01-01"
+
+# Маршрут: все запросы к поддомену уходят в Worker.
+# zone_name — основной домен (его зона должна быть в Cloudflare).
+routes = [
+  { pattern = "images.shibaribyazzky.com/*", zone_name = "shibaribyazzky.com" }
+]
