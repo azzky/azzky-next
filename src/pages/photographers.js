@@ -45,6 +45,7 @@ const PhotographersPage = ({
             </div>
             <img src="/404.jpg"
                 alt=""
+                fetchPriority="high"
                 className="heroImage"/>
         </section>
     </Layout>

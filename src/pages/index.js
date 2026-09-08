@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Head from 'next/head';
 
 import { client } from '@/lib/contentful';
@@ -77,26 +76,24 @@ const Home = ({ posts, favorites, reviews, locale, intl }) => {
                         </div>
                     </div>
                     <div className={classes.heroVideoRoot}>
-                        <LazyLoadComponent>
-                            <video autoPlay
-                                loop
-                                className={classes.heroVideo}
-                                muted
-                                playsInline
-                                id="background-video"
-                                fetchPriority="high"
-                                poster={config.videoThumb}
-                            >
-                                {isMounted && renderVideo && config.videoFormats.map(format => {
-                                    return (
-                                        <source src={`/${config.videoFileName}.${format}`}
-                                            type={`video/${format}`}
-                                            key={format}
-                                        />
-                                    );
-                                })}
-                            </video>
-                        </LazyLoadComponent>
+                        <video autoPlay
+                            loop
+                            className={classes.heroVideo}
+                            muted
+                            playsInline
+                            id="background-video"
+                            fetchPriority="high"
+                            poster={config.videoThumb}
+                        >
+                            {isMounted && renderVideo && config.videoFormats.map(format => {
+                                return (
+                                    <source src={`/${config.videoFileName}.${format}`}
+                                        type={`video/${format}`}
+                                        key={format}
+                                    />
+                                );
+                            })}
+                        </video>
                     </div>
                     {isMounted && !renderVideo && (
                         <button className={classes.videoTrigger}

@@ -24,10 +24,13 @@ const Model = ({ posts, locale, tag }) => {
         classes.heroWrapper;
 
     const heroImageProps = !posts[0].fields.isWallNsfw || (posts[0].fields.isWallNsfw && pageNsfw) ? {
-        fill: true
+        fill: true,
+        sizes: '100vw',
+        priority: true
     } : {
         width: 15,
-        height: 15
+        height: 15,
+        priority: true
     };
 
     return (

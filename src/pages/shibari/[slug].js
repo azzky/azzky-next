@@ -77,10 +77,13 @@ const Post = ({ post, locale, createdAt, prev, next }) => {
         classes.heroWrapper;
 
     const heroImageProps = !isWallNsfw || (isWallNsfw && pageNsfw) ? {
-        fill: true
+        fill: true,
+        sizes: '100vw',
+        priority: true
     } : {
         width: 15,
-        height: 15
+        height: 15,
+        priority: true
     };
     const metaData = {
         title: metatitle || title,
