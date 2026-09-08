@@ -1,0 +1,164 @@
+@import '@/styles/constants.scss';
+
+.root {
+    display: flex;
+    justify-content: center;
+    margin-block-start: 32px;
+    padding-inline: 15px;
+}
+
+.trigger {
+    font-size: var(--font-size-16);
+    font-weight: 500;
+    padding: 12px 32px;
+    border: 1px solid var(--color-black);
+    color: var(--color-black);
+    background: transparent;
+    cursor: pointer;
+    transition: background-color .2s ease, color .2s ease;
+    margin-bottom: 24px;
+
+    @media (min-width: 768px) {
+        margin-bottom: 36px;
+    }
+
+    &:hover,
+    &:focus-visible {
+        background: var(--color-black);
+        color: var(--color-bg, #000);
+    }
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+}
+
+.backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, .7);
+    cursor: pointer;
+}
+
+.dialog {
+    position: relative;
+    z-index: 1;
+    inline-size: 100%;
+    max-inline-size: 520px;
+    max-block-size: 90vh;
+    overflow-y: auto;
+    padding: 40px 24px 24px;
+    background: var(--color-bg, #111);
+    border: 1px solid var(--color-black);
+}
+
+.closeButton {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    inline-size: 28px;
+    block-size: 28px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        inline-size: 20px;
+        block-size: 2px;
+        background: var(--color-black);
+    }
+
+    &::before {
+        transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    &::after {
+        transform: translate(-50%, -50%) rotate(-45deg);
+    }
+}
+
+.form,
+.message {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.formTitle {
+    font-weight: 900;
+    font-size: var(--font-size-24, 1.5rem);
+    margin: 0 0 8px;
+    text-align: center;
+}
+
+.label {
+    font-size: var(--font-size-13);
+    color: var(--color-black);
+}
+
+.input,
+.textarea {
+    font: inherit;
+    padding: 10px 12px;
+    background: transparent;
+    color: inherit;
+    border: 1px solid var(--color-black);
+    inline-size: 100%;
+    box-sizing: border-box;
+}
+
+.textarea {
+    resize: vertical;
+    min-block-size: 120px;
+}
+
+.honeypot {
+    position: absolute;
+    left: -9999px;
+    inline-size: 1px;
+    block-size: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.submit {
+    font-size: var(--font-size-16);
+    font-weight: 500;
+    margin-block-start: 8px;
+    padding: 12px 32px;
+    border: 1px solid var(--color-black);
+    background: var(--color-black);
+    color: var(--color-bg, #000);
+    cursor: pointer;
+    transition: opacity .2s ease;
+
+    &:disabled {
+        opacity: .6;
+        cursor: default;
+    }
+}
+
+.note {
+    font-size: var(--font-size-13);
+    text-align: center;
+    opacity: .8;
+    margin: 4px 0 0;
+}
+
+.error {
+    font-size: var(--font-size-13);
+    color: #ff6b6b;
+    margin: 0;
+}
